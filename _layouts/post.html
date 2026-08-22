@@ -1,0 +1,20 @@
+---
+layout: default
+---
+{%- assign cat = site.data.categories[page.category] -%}
+{%- assign mins = content | number_of_words | divided_by: 200 | plus: 1 -%}
+<main class="article">
+  <span class="stamp {{ page.category }}">{{ cat.label }}</span>
+  <h1>{{ page.title }}</h1>
+  <div class="meta mono">
+    <span>{{ page.date | date: "%d.%m.%Y" }}</span>
+    <span>{{ mins }} phút đọc</span>
+  </div>
+  <div class="article-body">
+    {{ content }}
+  </div>
+</main>
+
+<div class="post-foot">
+  <a class="backlink" href="{{ '/' | relative_url }}"><span class="arrow" aria-hidden="true">←</span> Quay lại blog</a>
+</div>

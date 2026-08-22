@@ -1,12 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="/logo.ico" type="image/x-icon">
-    <title>Mạnh Hoàng</title>
-</head>
-<body>
-    DCMMMMMMMM!!!!
-</body>
-</html>
+---
+layout: default
+nav: home
+title: Trịnh Mạnh Hoàng
+permalink: /
+description: "Ghi chép của Trịnh Mạnh Hoàng — lập trình viên Java — về nghề, và thỉnh thoảng là chuyện ngoài công việc."
+---
+{%- assign order = "nghe,ngam,duong,an" | split: "," -%}
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="route mono">Blog</p>
+    <h1 class="wordmark">{{ site.title }}</h1>
+    <p class="mission">Ghi chép về nghề lập trình — và thỉnh thoảng là chuyện ngoài công việc.</p>
+  </div>
+</header>
+
+<nav class="tabs mono">
+  {%- for key in order %}
+  {%- assign c = site.data.categories[key] %}
+  <span class="tab {{ key }}"><span class="dot"></span>{{ c.label }} <span class="ratio">{{ c.cadence }}</span></span>
+  {%- endfor %}
+</nav>
+
+<div class="layout">
+  <aside class="sidebar">
+    <h2 class="mono">Về mình</h2>
+    <p class="bio">Lập trình viên Java, gần 5 năm làm hệ thống web doanh nghiệp — batch dữ liệu lớn, code legacy, đang đi sâu Spring Boot.</p>
+    <p class="cadence">Đăng bài <span class="mono">1 lần / tuần</span>, sáng Chủ Nhật. Chuyện nghề là phần giữ nhịp; chuyện đường và chuyện ăn chỉ lên khi có chất liệu thật.</p>
+    <p><a class="readmore underline-link" href="{{ '/gioi-thieu/' | relative_url }}">Kỹ năng &amp; kinh nghiệm <span class="arrow" aria-hidden="true">→</span></a></p>
+  </aside>
+
+  <section class="feed">
+    {%- if site.posts.size > 0 %}
+    {%- assign featured = site.posts.first %}
+    {%- assign mins = featured.content | number_of_words | divided_by: 200 | plus: 1 %}
+    <article class="featured">
+      <span class="stamp {{ featured.category }}">{{ site.data.categories[featured.category].label }}</span>
+      <h2><a class="underline-link" href="{{ featured.url | relative_url }}">{{ featured.title }}</a></h2>
+      <div class="meta mono">
+        <span>{{ featured.date | date: "%d.%m.%Y" }}</span>
+        <span>{{ mins }} phút đọc</span>
+      </div>
+      {{ featured.excerpt }}
+      <a class="readmore underline-link" href="{{ featured.url | relative_url }}">Đọc tiếp <span class="arrow" aria-hidden="true">→</span></a>
+    </article>
+    {%- endif %}
+
+    {%- if site.posts.size > 1 %}
+    <h2 class="section-label">Bài trước</h2>
+    <ol class="entries">
+      {%- for post in site.posts offset: 1 %}
+      <li class="entry {{ post.category }}">
+        <div class="when mono"><span class="date">{{ post.date | date: "%d.%m" }}</span>{{ post.date | date: "%Y" }}</div>
+        <div>
+          <span class="tag">{{ site.data.categories[post.category].label }}</span>
+          <h3><a class="underline-link" href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+          {{ post.excerpt }}
+        </div>
+      </li>
+      {%- endfor %}
+    </ol>
+    {%- endif %}
+
+    {%- if site.data.upcoming.size > 0 %}
+    <h2 class="section-label">Sắp ra mắt</h2>
+    <ol class="entries">
+      {%- for item in site.data.upcoming %}
+      <li class="entry {{ item.category }}">
+        <div class="when mono"><span class="date">{{ item.date | date: "%d.%m" }}</span>{{ item.date | date: "%Y" }}</div>
+        <div>
+          <span class="tag">{{ site.data.categories[item.category].label }}</span>
+          <h3><span class="pending">{{ item.title }}</span></h3>
+          <p>{{ item.teaser }}</p>
+        </div>
+      </li>
+      {%- endfor %}
+    </ol>
+    <p class="note">Bài <em>{{ site.data.categories.duong.label }}</em> và <em>{{ site.data.categories.an.label }}</em> không nằm trong lịch cố định — khi nào có chuyến đi thật, bài sẽ được chèn vào Chủ Nhật gần nhất và đẩy lịch trên lùi một tuần.</p>
+    {%- endif %}
+  </section>
+</div>

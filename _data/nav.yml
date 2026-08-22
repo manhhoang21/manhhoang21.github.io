@@ -1,0 +1,9 @@
+- key: home
+  label: Trang chủ
+  url: /
+- key: trips
+  label: Chuyến đi
+  url: /chuyen-di/
+- key: about
+  label: Giới thiệu
+  url: /gioi-thieu/
