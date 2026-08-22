@@ -1,0 +1,17 @@
+# Đổi tên danh mục ở đây là đổi cả site (nav, tab, nhãn bài viết)
+nghe:
+  label: Góc nghề
+  cadence: 2–3 bài/tháng
+  blurb: Bài học, sai lầm, công cụ và kinh nghiệm lập trình
+ngam:
+  label: Ngẫm
+  cadence: ~1 bài/tháng
+  blurb: Bài ngắn nối chuyện nghề với chuyện đời
+duong:
+  label: Trên đường
+  cadence: khi có chuyến đi
+  blurb: Nhật ký chuyến đi, địa điểm, mẹo đi lại
+an:
+  label: Ăn gì hôm nay
+  cadence: khi có chất liệu
+  blurb: Quán ruột, món địa phương, ẩm thực vùng miền

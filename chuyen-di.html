@@ -1,0 +1,77 @@
+---
+layout: default
+nav: trips
+title: Chuyến đi
+permalink: /chuyen-di/
+description: "Những chuyến đi của Trịnh Mạnh Hoàng — kể lại từ đầu đến cuối, kèm ảnh tự chụp."
+---
+<script>document.documentElement.classList.add('js-anim');</script>
+{%- assign trips = site.categories.duong -%}
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="route mono">{{ site.data.categories.duong.label }}</p>
+    <h1 class="wordmark">Chuyến đi</h1>
+    <p class="mission">Không có lịch trình hoàn hảo, chỉ có những chuyến đi thật — kể cả đoạn lỡ chuyến và đi lạc.</p>
+  </div>
+</header>
+
+<main class="landing">
+  <p class="trips-intro">Mỗi chuyến một bài, kể lại từ đầu đến cuối. Bấm vào để đọc chi tiết và xem ảnh.</p>
+
+  {%- if trips and trips.size > 0 %}
+  <ol class="trips">
+    {%- for trip in trips %}
+    <li class="trip reveal">
+      {%- if trip.cover %}
+      <a class="trip-media" href="{{ trip.url | relative_url }}" tabindex="-1" aria-hidden="true">
+        <img src="{{ trip.cover | relative_url }}" alt="" loading="lazy" width="640" height="480" />
+      </a>
+      {%- else %}
+      <span class="trip-media empty">chưa có ảnh</span>
+      {%- endif %}
+      <div class="trip-body">
+        <h3><a class="underline-link" href="{{ trip.url | relative_url }}">{{ trip.title }}</a></h3>
+        <div class="trip-meta mono">
+          {%- if trip.location %}<span class="where">{{ trip.location }}</span>{%- endif %}
+          <span>{{ trip.date | date: "%d.%m.%Y" }}</span>
+          {%- if trip.days %}<span>{{ trip.days }} ngày</span>{%- endif %}
+        </div>
+        {{ trip.excerpt }}
+        <a class="readmore underline-link" href="{{ trip.url | relative_url }}">Xem chi tiết <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </li>
+    {%- endfor %}
+  </ol>
+  {%- else %}
+  <div class="trips-empty reveal">
+    <p>Chưa có chuyến đi nào được viết.</p>
+    <p class="mono" style="font-size:0.78rem">Thêm file vào <code>_posts/</code> với <code>category: duong</code> là nó tự hiện ở đây.</p>
+  </div>
+  {%- endif %}
+</main>
+
+<script>
+(function () {
+  var els = document.querySelectorAll('.reveal');
+  if (!els.length) return;
+
+  // Không hỗ trợ IntersectionObserver, hoặc người dùng tắt hiệu ứng chuyển động
+  // -> hiện hết ngay, không chờ cuộn.
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!('IntersectionObserver' in window) || reduce) {
+    for (var i = 0; i < els.length; i++) els[i].classList.add('is-in');
+    return;
+  }
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-in');
+      io.unobserve(entry.target);
+    });
+  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.1 });
+
+  for (var j = 0; j < els.length; j++) io.observe(els[j]);
+})();
+</script>

@@ -1,0 +1,11 @@
+{%- comment -%}
+  Nhúng ảnh từ repo ảnh riêng qua jsDelivr CDN.
+  Dùng: {% include img.html src="ten-anh.webp" alt="Mô tả ảnh" %}
+  Tuỳ chọn: caption="Chú thích dưới ảnh"
+{%- endcomment -%}
+<figure class="post-img">
+  <img src="{{ site.cdn_url }}/{{ include.src }}" alt="{{ include.alt | default: '' }}" loading="lazy">
+  {%- if include.caption %}
+  <figcaption>{{ include.caption }}</figcaption>
+  {%- endif %}
+</figure>

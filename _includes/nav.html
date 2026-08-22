@@ -1,0 +1,8 @@
+<nav class="site-nav mono">
+  <div class="site-nav-inner">
+    <a class="brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+    {%- for item in site.data.nav %}
+    <a href="{{ item.url | relative_url }}"{% if page.nav == item.key %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endfor %}
+  </div>
+</nav>

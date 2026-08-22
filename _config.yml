@@ -1,0 +1,29 @@
+title: Trịnh Mạnh Hoàng
+description: Lập trình viên Java. Ghi chép về nghề, và thỉnh thoảng về chuyện ngoài công việc.
+author: Trịnh Mạnh Hoàng
+lang: vi
+
+url: https://manhhoang21.github.io
+baseurl: ""
+
+# Repo ảnh riêng, serve qua jsDelivr CDN
+# Đổi "main" thành tag/commit hash khi muốn ghim phiên bản (cache ổn định hơn)
+cdn_url: "https://cdn.jsdelivr.net/gh/manhhoang21/blog-anh@main"
+
+# Bài viết ra URL dạng /bai-viet/ten-bai/
+permalink: /bai-viet/:title/
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+
+# Không đẩy mấy file này lên web
+exclude:
+  - ke-hoach-noi-dung-blog.md
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - scripts/
