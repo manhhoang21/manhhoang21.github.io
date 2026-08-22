@@ -25,7 +25,7 @@ description: "Những chuyến đi của Trịnh Mạnh Hoàng — kể lại t�
     <li class="trip reveal">
       {%- if trip.cover %}
       <a class="trip-media" href="{{ trip.url | relative_url }}" tabindex="-1" aria-hidden="true">
-        <img src="{{ trip.cover | relative_url }}" alt="" loading="lazy" width="640" height="480" />
+        <img src="{{ site.cdn_url }}/{{ trip.cover }}" alt="" loading="lazy" width="640" height="480" />
       </a>
       {%- else %}
       <span class="trip-media empty">chưa có ảnh</span>
