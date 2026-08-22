@@ -688,8 +688,22 @@ footer .aliases span:not(:last-child)::after { content: "·"; margin: 0 0.5em; o
   font-size: 0.8rem; font-style: italic; color: var(--ink-soft); margin-top: 0.5rem;
 }
 .gallery { display: grid; gap: 0.7rem; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); margin: 1.75rem 0; }
-.gallery img { margin: 0; }
+.gallery img { margin: 0; width: 100%; }
 
 @media (prefers-reduced-motion: reduce) {
   .trip-media img, .trip:hover .trip-media img { transition: none; transform: none; }
 }
+
+/* ---------- Ảnh nhúng qua include img.html ----------
+   Tự chứa, dùng được cả ngoài .article-body */
+.post-img { margin: 2rem 0; }
+.post-img img {
+  max-width: 100%; height: auto; display: block;
+  border-radius: 4px; margin: 0;
+}
+.post-img figcaption {
+  font-size: 0.8rem; font-style: italic;
+  color: var(--ink-soft); margin-top: 0.5rem;
+}
+.gallery figure, .gallery .post-img { margin: 0; }
+.gallery figcaption { margin-top: 0.35rem; }
