@@ -1,0 +1,169 @@
+// Thành phần dùng ở nhiều trang: nav, masthead, nhãn danh mục, link, meta, danh sách gạch đầu dòng, footer.
+// Phần tắt chuyển động của các thành phần này nằm ở _hieu-ung.scss.
+
+// ---------- Thanh điều hướng (mọi trang) ----------
+.site-nav {
+  background: var(--band-bg);
+  color: var(--band-fg);
+}
+.site-nav-inner {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0.8rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem 1.4rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.site-nav a {
+  text-decoration: none;
+  opacity: 0.6;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  transition: opacity 0.2s ease, border-color 0.2s ease;
+
+  &:hover,
+  &:focus-visible,
+  &[aria-current="page"] {
+    opacity: 1;
+    border-bottom-color: var(--accent);
+  }
+  &:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+}
+.site-nav .brand {
+  margin-right: auto;
+  font-style: italic;
+  font-size: 0.95rem;
+  letter-spacing: 0;
+  text-transform: none;
+  opacity: 0.9;
+  border-bottom: none;
+
+  &:hover, &:focus-visible { opacity: 1; border-bottom-color: transparent; }
+}
+
+// ---------- Masthead ----------
+.masthead {
+  background: var(--band-bg);
+  color: var(--band-fg);
+  border-bottom: 1px solid var(--band-line);
+}
+.masthead-inner {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 2.75rem 1.5rem 2.25rem;
+}
+.route {
+  margin: 0 0 0.9rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--band-fg);
+  opacity: 0.6;
+
+  .sep { opacity: 0.5; padding: 0 0.5em; }
+}
+.wordmark {
+  margin: 0;
+  font-size: clamp(2.2rem, 5vw, 3.1rem);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+.mission {
+  max-width: 46ch;
+  margin: 0.9rem 0 0;
+  font-size: 1.05rem;
+  color: var(--band-fg);
+  opacity: 0.82;
+}
+
+// ---------- Nhãn danh mục ----------
+.stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  border-radius: 3px;
+  margin-bottom: 1rem;
+}
+@each $dm in $danh-muc {
+  .stamp.#{$dm} { background: var(--cat-#{$dm}-bg); color: var(--cat-#{$dm}); }
+}
+
+// ---------- Gạch chân chạy khi hover ----------
+.underline-link {
+  text-decoration: none;
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0 1px;
+  transition: background-size 0.25s ease;
+
+  &:hover,
+  &:focus-visible { background-size: 100% 1px; }
+  &:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+}
+
+// ---------- Ngày đăng, thời gian đọc (trang chủ + bài viết) ----------
+.meta {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+// ---------- Link "Đọc tiếp →" ----------
+.readmore {
+  display: inline-block;
+  margin-top: 0.4rem;
+  font-size: 0.9rem;
+  color: var(--accent-strong);
+
+  .arrow { transition: transform 0.2s ease; display: inline-block; }
+  &:hover .arrow { transform: translateX(3px); }
+}
+
+// ---------- Danh sách gạch đầu dòng "—" ----------
+.tips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    position: relative;
+    padding-left: 1.1rem;
+    margin-bottom: 0.85rem;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+
+    &::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+  }
+}
+
+// ---------- Footer ----------
+footer {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+  border-top: 1px dashed var(--line);
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+
+  .aliases { margin: 0 0 0.6rem; }
+  .aliases span:not(:last-child)::after { content: "·"; margin: 0 0.5em; opacity: 0.5; }
+}
