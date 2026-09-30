@@ -4,3 +4,7 @@ _site/
 Gemfile.lock
 __pycache__/
 *.pyc
+
+# Tài liệu nội bộ, không đẩy lên git
+ke-hoach-noi-dung-blog.md
+milestone.md
