@@ -1,0 +1,56 @@
+// Biến dùng chung. File này chỉ khai báo biến Sass, không sinh ra CSS.
+
+// Georgia thiếu Latin Extended Additional (U+1EA0–U+1EFF) nên vỡ dấu tiếng Việt.
+// Cambria (Win) / Noto Serif (Linux, Android) / Times New Roman (macOS) đều đủ.
+$font-serif: Cambria, "Noto Serif", "Times New Roman", Times, serif;
+$font-mono: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, "Liberation Mono", monospace;
+
+// Danh mục bài viết, trùng key trong _data/categories.yml.
+// Thêm danh mục mới: thêm key vào đây, rồi thêm 2 màu "cat-<key>" và "cat-<key>-bg"
+// vào cả $mau-sang lẫn $mau-toi. Nhãn, tab, chấm màu sẽ tự sinh.
+$danh-muc: nghe, duong, an, ngam;
+
+// Bảng màu. _nen.scss ghi ra thành biến CSS: "ink" -> var(--ink)
+$mau-sang: (
+  "ink": #1c2420,
+  "ink-soft": #45524c,
+  "paper": #eef1ea,
+  "paper-raised": #ffffff,
+  "line": #c9d0c5,
+  "accent": #a8681f,
+  "accent-strong": #7a4a15,
+  "band-bg": #1c2420,
+  "band-fg": #eef1ea,
+  "band-line": #3a453e,
+  "cat-nghe": #2f5d62,
+  "cat-nghe-bg": #e2ecec,
+  "cat-duong": #a8681f,
+  "cat-duong-bg": #f2e6d3,
+  "cat-an": #a13d2c,
+  "cat-an-bg": #f3ddd7,
+  "cat-ngam": #6b5b7a,
+  "cat-ngam-bg": #e8e2ee,
+  "shadow": (0 1px 2px rgba(28,36,32,0.06), 0 8px 20px rgba(28,36,32,0.06))
+);
+
+$mau-toi: (
+  "ink": #e9ede7,
+  "ink-soft": #a9b3ac,
+  "paper": #141815,
+  "paper-raised": #1c211d,
+  "line": #333d35,
+  "accent": #d99a4e,
+  "accent-strong": #eab873,
+  "band-bg": #0a0d0b,
+  "band-fg": #d9ddd4,
+  "band-line": #2a322c,
+  "cat-nghe": #6fa9ae,
+  "cat-nghe-bg": #1e2b2b,
+  "cat-duong": #d99a4e,
+  "cat-duong-bg": #2e2519,
+  "cat-an": #d9887a,
+  "cat-an-bg": #302020,
+  "cat-ngam": #ad9ec0,
+  "cat-ngam-bg": #26212d,
+  "shadow": (0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35))
+);

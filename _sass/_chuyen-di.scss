@@ -1,0 +1,57 @@
+// Trang chuyến đi (chuyen-di.html). Khung trang dùng .landing ở _trang-chu.scss.
+
+.trips-intro { max-width: 62ch; margin: 0 0 2.5rem; font-size: 1.05rem; color: var(--ink-soft); }
+.trips { list-style: none; margin: 0; padding: 0; display: grid; gap: 2.5rem; }
+
+.trip {
+  display: grid;
+  grid-template-columns: 20rem 1fr;
+  gap: 1.75rem;
+  align-items: start;
+
+  @media (max-width: 720px) { grid-template-columns: 1fr; gap: 1rem; }
+}
+
+.trip-media {
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--paper-raised);
+  aspect-ratio: 4 / 3;
+
+  img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+}
+.trip:hover .trip-media img { transform: scale(1.04); }
+
+// Chưa có ảnh bìa thì hiện khối vân màu thay vì ảnh vỡ
+.trip-media.empty {
+  display: flex; align-items: center; justify-content: center;
+  background: repeating-linear-gradient(45deg, var(--cat-duong-bg), var(--cat-duong-bg) 10px, var(--paper-raised) 10px, var(--paper-raised) 20px);
+  color: var(--cat-duong);
+  font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+}
+
+.trip-body {
+  h3 { margin: 0 0 0.4rem; font-size: 1.35rem; font-weight: 400; text-wrap: balance; }
+  p { margin: 0 0 0.8rem; color: var(--ink-soft); font-size: 0.95rem; }
+}
+.trip-meta {
+  display: flex; flex-wrap: wrap; gap: 0.4rem 1rem;
+  font-size: 0.74rem; color: var(--ink-soft); margin-bottom: 0.8rem;
+
+  .where { color: var(--cat-duong); }
+}
+
+.trips-empty {
+  border: 1px dashed var(--line);
+  border-radius: 4px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  color: var(--ink-soft);
+}

@@ -1,0 +1,209 @@
+// Trang chủ (index.html)
+
+// ---------- Tab danh mục ----------
+.tabs {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 1.1rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.6rem;
+  border-bottom: 1px solid var(--line);
+}
+.tab {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+
+  .dot {
+    width: 0.55em;
+    height: 0.55em;
+    border-radius: 50%;
+    flex: none;
+    transform: translateY(-0.05em);
+  }
+  .ratio {
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    opacity: 0.75;
+  }
+  @each $dm in $danh-muc {
+    &.#{$dm} .dot { background: var(--cat-#{$dm}); }
+  }
+}
+
+// ---------- Bố cục 2 cột ----------
+.layout {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+  display: grid;
+  grid-template-columns: 15.5rem 1fr;
+  gap: 3rem;
+  align-items: start;
+
+  @media (max-width: 700px) { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+
+// ---------- Sidebar ----------
+.sidebar {
+  position: sticky;
+  top: 2rem;
+
+  h2 {
+    font-family: inherit;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 0 0 0.7rem;
+  }
+}
+.bio {
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  margin: 0 0 1.5rem;
+
+  strong { color: var(--ink); font-weight: 600; }
+}
+.cadence {
+  font-size: 0.85rem;
+  margin: 0 0 1.75rem;
+  padding-bottom: 1.75rem;
+  border-bottom: 1px dashed var(--line);
+
+  .mono { color: var(--accent-strong); }
+}
+
+// Ghi chú phụ dưới một khối nội dung
+.note {
+  max-width: 62ch;
+  margin: 1.5rem 0 0;
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--ink-soft);
+
+  em { font-style: normal; color: var(--ink); }
+}
+
+// ---------- Bài nổi bật ----------
+.featured {
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 2rem 2.2rem;
+  box-shadow: var(--shadow);
+  margin-bottom: 2.75rem;
+
+  h2 {
+    margin: 0 0 0.6rem;
+    font-size: 1.7rem;
+    font-weight: 400;
+    text-wrap: balance;
+  }
+  p { margin: 0 0 1rem; color: var(--ink-soft); }
+  .signoff { color: var(--ink); font-style: italic; }
+}
+
+// ---------- Danh sách bài ----------
+.section-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 1.1rem;
+}
+.entries {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  .entry:last-child { border-bottom: 1px dashed var(--line); }
+}
+.entry {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr;
+  gap: 1.2rem;
+  padding: 1.15rem 0;
+  border-top: 1px dashed var(--line);
+
+  @media (max-width: 560px) { grid-template-columns: 1fr; gap: 0.35rem; }
+
+  .when {
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    padding-top: 0.15rem;
+
+    .date { display: block; }
+  }
+  h3 {
+    margin: 0 0 0.35rem;
+    font-size: 1.08rem;
+    font-weight: 600;
+  }
+  p { margin: 0; font-size: 0.9rem; color: var(--ink-soft); }
+  .tag {
+    display: inline-block;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  @each $dm in $danh-muc {
+    &.#{$dm} .tag { color: var(--cat-#{$dm}); }
+  }
+  // Bài chưa viết: hiện như text thường, chưa bấm được
+  .pending { color: var(--ink); }
+}
+
+// ---------- Khung trang landing ----------
+// .landing đang dùng cho trang Chuyến đi.
+// .intro, .cta, .landing-block, .cat-list còn lại từ trang chủ cũ, hiện không trang nào dùng.
+.landing {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 2.75rem 1.5rem 4rem;
+}
+.intro {
+  max-width: 58ch;
+  margin: 0 0 2rem;
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+
+  strong { color: var(--ink); font-weight: 600; }
+}
+.cta {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  padding: 1rem 1.5rem;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  box-shadow: var(--shadow);
+  text-decoration: none;
+  font-size: 1.05rem;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+
+  &:hover, &:focus-visible { border-color: var(--accent); transform: translateY(-1px); }
+  &:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  em { font-style: italic; }
+  .arrow { color: var(--accent); }
+}
+.landing-block {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px dashed var(--line);
+}
+.cat-list {
+  list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+
+  li { display: flex; align-items: baseline; gap: 0.6rem; font-size: 0.95rem; }
+  .dot { width: 0.55em; height: 0.55em; border-radius: 50%; flex: none; transform: translateY(-0.05em); }
+  .what { color: var(--ink-soft); font-size: 0.85rem; display: block; }
+  .when-note { font-size: 0.92em; opacity: 0.7; }
+  @each $dm in $danh-muc {
+    .#{$dm} .dot { background: var(--cat-#{$dm}); }
+  }
+}
