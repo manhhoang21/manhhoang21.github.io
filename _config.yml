@@ -23,6 +23,8 @@ defaults:
 # Không đẩy mấy file này lên web
 exclude:
   - ke-hoach-noi-dung-blog.md
+  - milestone.md
+  - review.md
   - Gemfile
   - Gemfile.lock
   - README.md
