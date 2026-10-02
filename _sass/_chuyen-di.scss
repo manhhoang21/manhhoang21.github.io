@@ -55,3 +55,8 @@
   text-align: center;
   color: var(--ink-soft);
 }
+
+// Tắt hiệu ứng phóng to ảnh khi hover
+@include giam-chuyen-dong {
+  .trip-media img, .trip:hover .trip-media img { transition: none; transform: none; }
+}

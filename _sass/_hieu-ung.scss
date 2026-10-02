@@ -1,7 +1,8 @@
-// Hiệu ứng chuyển động và phần tắt chuyển động.
+// Hiệu ứng dùng chung và khối tắt chuyển động gộp cho nhiều file.
 // Import cuối cùng để các khối giam-chuyen-dong đè được hiệu ứng khai báo ở các file trước.
+// Quy tắc đặt khối tắt chuyển động: xem @mixin giam-chuyen-dong trong _mixin.scss.
 
-// ---------- Tắt hiệu ứng hover ----------
+// ---------- Tắt hiệu ứng hover (_thanh-phan, _trang-chu, _bai-viet) ----------
 @include giam-chuyen-dong {
   .underline-link, .cta, .site-nav a, .readmore .arrow, .backlink .arrow { transition: none; }
   .cta:hover, .cta:focus-visible { transform: none; }
@@ -22,9 +23,4 @@
 
 @include giam-chuyen-dong {
   .js-anim .reveal { opacity: 1; transform: none; transition: none; }
-}
-
-// ---------- Ảnh chuyến đi phóng to khi hover ----------
-@include giam-chuyen-dong {
-  .trip-media img, .trip:hover .trip-media img { transition: none; transform: none; }
 }

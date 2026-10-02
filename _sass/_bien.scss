@@ -7,7 +7,7 @@ $font-mono: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, "Liberation Mono
 
 // Danh mục bài viết, trùng key trong _data/categories.yml.
 // Thêm danh mục mới: thêm key vào đây, rồi thêm 2 màu "cat-<key>" và "cat-<key>-bg"
-// vào cả $mau-sang lẫn $mau-toi. Nhãn, tab, chấm màu sẽ tự sinh.
+// vào cả $mau-sang lẫn $mau-toi. Nhãn, tab, chấm màu sẽ tự sinh. Quên màu thì build báo lỗi (cuối file).
 $danh-muc: nghe, duong, an, ngam;
 
 // Bảng màu. _nen.scss ghi ra thành biến CSS: "ink" -> var(--ink)
@@ -54,3 +54,14 @@ $mau-toi: (
   "cat-ngam-bg": #26212d,
   "shadow": (0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35))
 );
+
+// Danh mục nào thiếu màu thì dừng build, để nhãn/tab không mất màu âm thầm.
+@each $dm in $danh-muc {
+  @each $ten-bang, $bang in ("$mau-sang": $mau-sang, "$mau-toi": $mau-toi) {
+    @each $khoa in ("cat-#{$dm}", "cat-#{$dm}-bg") {
+      @if not map-has-key($bang, $khoa) {
+        @error "Danh mục '#{$dm}' thiếu màu '#{$khoa}' trong #{$ten-bang} (_sass/_bien.scss).";
+      }
+    }
+  }
+}

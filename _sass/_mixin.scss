@@ -6,7 +6,9 @@
 }
 
 // Phần tắt/giảm chuyển động cho người bật "giảm chuyển động" trong hệ điều hành.
-// Mỗi hiệu ứng mới nên kèm một khối này.
+// Mỗi hiệu ứng mới cần kèm một khối này. Đặt ở đâu:
+// - Hiệu ứng chỉ nằm trong một file -> đặt khối ở cuối chính file đó.
+// - Một khối tắt hiệu ứng của nhiều file cùng lúc -> đặt ở _hieu-ung.scss (import cuối cùng).
 @mixin giam-chuyen-dong {
   @media (prefers-reduced-motion: reduce) {
     @content;
