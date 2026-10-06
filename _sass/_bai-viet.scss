@@ -1,0 +1,78 @@
+// Trang bài viết (_layouts/post.html)
+
+.article {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 3rem;
+
+  h1 {
+    margin: 0 0 0.6rem;
+    font-size: clamp(1.8rem, 4.5vw, 2.4rem);
+    font-weight: 400;
+    text-wrap: balance;
+  }
+}
+.article-body {
+  p { margin: 0 0 1.3rem; font-size: 1.06rem; }
+  p:last-child { margin-bottom: 0; }
+  .signoff {
+    font-style: italic;
+    padding-top: 0.4rem;
+    border-top: 1px dashed var(--line);
+    margin-top: 2rem;
+  }
+}
+.post-foot {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 0 1.5rem 4rem;
+}
+.backlink {
+  display: inline-block;
+  padding-top: 1.75rem;
+  border-top: 1px dashed var(--line);
+  width: 100%;
+  font-size: 0.9rem;
+  color: var(--accent-strong);
+
+  .arrow { transition: transform 0.2s ease; display: inline-block; }
+  &:hover .arrow { transform: translateX(-3px); }
+}
+
+// ---------- Ảnh trong bài viết ----------
+// Thứ tự phần ảnh quan trọng: .post-img và .gallery phải nằm sau .article-body img để đè margin.
+.article-body {
+  img {
+    max-width: 100%; height: auto; display: block;
+    border-radius: 4px; margin: 1.75rem 0 0.4rem;
+  }
+  figure { margin: 2rem 0; }
+  figure img { margin-top: 0; }
+  figcaption {
+    font-size: 0.8rem; font-style: italic; color: var(--ink-soft); margin-top: 0.5rem;
+  }
+}
+.gallery {
+  display: grid; gap: 0.7rem; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); margin: 1.75rem 0;
+
+  img { margin: 0; width: 100%; }
+}
+
+// ---------- Ảnh nhúng qua include img.html ----------
+// Tự chứa, dùng được cả ngoài .article-body
+.post-img {
+  margin: 2rem 0;
+
+  img {
+    max-width: 100%; height: auto; display: block;
+    border-radius: 4px; margin: 0;
+  }
+  figcaption {
+    font-size: 0.8rem; font-style: italic;
+    color: var(--ink-soft); margin-top: 0.5rem;
+  }
+}
+.gallery {
+  figure, .post-img { margin: 0; }
+  figcaption { margin-top: 0.35rem; }
+}

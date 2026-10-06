@@ -1,0 +1,25 @@
+// ---------- Biến màu ----------
+// Mặc định sáng, tự sang tối theo hệ điều hành, hoặc ép bằng data-theme trên <html>.
+:root { @include bien-mau($mau-sang); }
+
+@media (prefers-color-scheme: dark) {
+  :root { @include bien-mau($mau-toi); }
+}
+
+:root[data-theme="dark"] { @include bien-mau($mau-toi); }
+:root[data-theme="light"] { @include bien-mau($mau-sang); }
+
+// ---------- Nền tảng ----------
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: $font-serif;
+  line-height: 1.6;
+}
+
+.mono { font-family: $font-mono; }
+
+a { color: inherit; }

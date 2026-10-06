@@ -8,7 +8,7 @@
 <title>{% if page.nav == 'home' %}{{ site.title }}{% else %}{{ page.title }} — {{ site.title }}{% endif %}</title>
 <meta name="description" content="{{ page.description | default: site.description | strip_html | normalize_whitespace }}" />
 </head>
-<body>
+<body class="{{ page.body_class | default: '' }}">
 
 {% include nav.html %}
 

@@ -1,0 +1,26 @@
+// Hiệu ứng dùng chung và khối tắt chuyển động gộp cho nhiều file.
+// Import cuối cùng để các khối giam-chuyen-dong đè được hiệu ứng khai báo ở các file trước.
+// Quy tắc đặt khối tắt chuyển động: xem @mixin giam-chuyen-dong trong _mixin.scss.
+
+// ---------- Tắt hiệu ứng hover (_thanh-phan, _trang-chu, _bai-viet) ----------
+@include giam-chuyen-dong {
+  .underline-link, .cta, .site-nav a, .readmore .arrow, .backlink .arrow { transition: none; }
+  .cta:hover, .cta:focus-visible { transform: none; }
+  .readmore:hover .arrow, .backlink:hover .arrow { transform: none; }
+}
+
+// ---------- Hiện dần khi cuộn ----------
+// Chỉ ẩn khi JS bật (class js-anim do script gắn vào <html>).
+// Tắt JS hoặc máy chưa chạy script -> nội dung hiện bình thường, không trắng trang.
+.js-anim .reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: opacity, transform;
+
+  &.is-in { opacity: 1; transform: none; }
+}
+
+@include giam-chuyen-dong {
+  .js-anim .reveal { opacity: 1; transform: none; transition: none; }
+}

@@ -1,0 +1,20 @@
+---
+# Front matter trống để Jekyll biên dịch file này ra /style.css
+---
+// ==========================================================
+// Trịnh Mạnh Hoàng — stylesheet dùng chung, các phần nằm trong _sass/
+//
+// Thứ tự import quan trọng: khi hai rule trùng độ ưu tiên, rule sau thắng.
+// Dùng @import (không dùng @use) để GitHub Pages build được.
+// ==========================================================
+
+@import
+  "bien",
+  "mixin",
+  "nen",
+  "thanh-phan",
+  "trang-chu",
+  "bai-viet",
+  "gioi-thieu",
+  "chuyen-di",
+  "hieu-ung";
