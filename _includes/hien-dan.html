@@ -1,0 +1,31 @@
+{%- comment -%}
+  Hiệu ứng hiện dần khi cuộn cho các phần tử .reveal. Đặt ở cuối trang.
+  Class js-anim được bật trong <head> của layout mặc định.
+  CSS ở _sass/_hieu-ung.scss.
+{%- endcomment -%}
+<script>
+(function () {
+  var els = document.querySelectorAll('.reveal, .article-body > *, .article > .stamp, .article > h1, .article > .meta, .article > .post-img, .article > .info-box, .job > .proj, .skill-grid > div, .facts > div');
+  if (!els.length) return;
+
+  // Không hỗ trợ IntersectionObserver -> hiện hết ngay, không chờ cuộn.
+  if (!('IntersectionObserver' in window)) {
+    for (var i = 0; i < els.length; i++) els[i].classList.add('is-in');
+    return;
+  }
+
+  var lastScrollY = window.scrollY;
+  var io = new IntersectionObserver(function (entries) {
+    var currentScrollY = window.scrollY;
+    var direction = currentScrollY >= lastScrollY ? 'down' : 'up';
+    lastScrollY = currentScrollY;
+
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) entry.target.setAttribute('data-scroll-direction', direction);
+      entry.target.classList.toggle('is-in', entry.isIntersecting);
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+
+  for (var j = 0; j < els.length; j++) io.observe(els[j]);
+})();
+</script>

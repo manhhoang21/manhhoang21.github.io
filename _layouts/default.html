@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ site.lang }}">
 <head>
+<script>document.documentElement.classList.add('js-anim');</script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="shortcut icon" href="{{ '/logo.ico' | relative_url }}" type="image/x-icon" />
@@ -17,6 +18,8 @@
 <footer>
   <p>© {{ site.time | date: "%Y" }} {{ site.author }}.</p>
 </footer>
+
+{% include hien-dan.html %}
 
 </body>
 </html>

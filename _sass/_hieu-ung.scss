@@ -15,12 +15,13 @@
 .js-anim .reveal {
   opacity: 0;
   transform: translateY(22px);
-  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.22, 0.61, 0.36, 1);
   will-change: opacity, transform;
 
-  &.is-in { opacity: 1; transform: none; }
+  &.is-in { opacity: 1; transform: translateY(0); }
+  &[data-scroll-direction="up"]:not(.is-in) { transform: translateY(-22px); }
 }
 
 @include giam-chuyen-dong {
-  .js-anim .reveal { opacity: 1; transform: none; transition: none; }
+  body { transition: none; }
 }
