@@ -24,4 +24,12 @@
 
 @include giam-chuyen-dong {
   body { transition: none; }
+
+  // Hiện ngay, không mờ, không trượt (kể cả trạng thái cuộn lên)
+  .js-anim .reveal,
+  .js-anim .reveal[data-scroll-direction="up"]:not(.is-in) {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }

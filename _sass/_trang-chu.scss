@@ -207,3 +207,9 @@
     .#{$dm} .dot { background: var(--cat-#{$dm}); }
   }
 }
+
+// Tắt hiệu ứng của file này: không trượt khi hover, chỉ giữ đổi màu viền
+@include giam-chuyen-dong {
+  .entry { transition: none; }
+  .entry:hover { padding-left: 0; }
+}
