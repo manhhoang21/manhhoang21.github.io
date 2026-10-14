@@ -46,6 +46,58 @@
   &:hover, &:focus-visible { opacity: 1; border-bottom-color: transparent; }
 }
 
+// Menu xổ xuống (mục nav có children, vd Trải nghiệm). Dùng <details> nên không cần JS để mở.
+.nav-drop {
+  position: relative;
+
+  summary {
+    cursor: pointer;
+    list-style: none;
+    opacity: 0.6;
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+    transition: opacity 0.2s ease, border-color 0.2s ease;
+
+    &::-webkit-details-marker { display: none; }
+    &::after { content: "▾"; margin-left: 0.35em; }
+    &:hover,
+    &:focus-visible,
+    &.is-current {
+      opacity: 1;
+      border-bottom-color: var(--accent);
+    }
+    &:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  }
+  &[open] summary { opacity: 1; }
+  &[open] summary::after { content: "▴"; }
+}
+.site-nav .nav-drop-list {
+  position: absolute;
+  top: calc(100% + 0.6rem);
+  left: -0.9rem;
+  z-index: 10;
+  min-width: 14rem;
+  margin: 0;
+  padding: 0.4rem 0;
+  list-style: none;
+  background: var(--band-bg);
+  border: 1px solid var(--band-line);
+  border-radius: 0.85rem;
+  box-shadow: var(--shadow);
+
+  a {
+    display: block;
+    padding: 0.55rem 0.9rem;
+    border-bottom: 0;
+    opacity: 0.75;
+
+    &:hover,
+    &:focus-visible,
+    &[aria-current="page"] { opacity: 1; color: var(--accent); }
+    &:focus-visible { outline-offset: -2px; }
+  }
+}
+
 // ---------- Masthead ----------
 .masthead {
   background: var(--band-bg);
@@ -184,4 +236,9 @@ footer {
 
   .aliases { margin: 0 0 0.6rem; }
   .aliases span:not(:last-child)::after { content: "·"; margin: 0 0.5em; opacity: 0.5; }
+}
+
+// Tắt hiệu ứng của menu xổ xuống (chỉ khai báo trong file này)
+@include giam-chuyen-dong {
+  .nav-drop summary { transition: none; }
 }

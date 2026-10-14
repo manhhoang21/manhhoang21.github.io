@@ -20,6 +20,33 @@ defaults:
     values:
       layout: post
 
+  # Trải nghiệm: thả bài vào đúng thư mục là tự có danh mục, layout và URL.
+  # Không cần ghi category/layout/permalink trong bài. Mẫu bài ở _drafts/mau-*.md
+  - scope:
+      path: "_posts/du-lich"
+      type: posts
+    values:
+      category: duong
+      layout: trai-nghiem
+      nav: experience
+      permalink: /trai-nghiem/du-lich/:title/
+  - scope:
+      path: "_posts/am-thuc"
+      type: posts
+    values:
+      category: an
+      layout: trai-nghiem
+      nav: experience
+      permalink: /trai-nghiem/am-thuc/:title/
+  - scope:
+      path: "_posts/vui-choi"
+      type: posts
+    values:
+      category: choi
+      layout: trai-nghiem
+      nav: experience
+      permalink: /trai-nghiem/vui-choi/:title/
+
 # Không đẩy mấy file này lên web
 exclude:
   - ke-hoach-noi-dung-blog.md

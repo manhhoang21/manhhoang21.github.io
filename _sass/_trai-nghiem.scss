@@ -1,0 +1,150 @@
+// Trải nghiệm: trang tổng /trai-nghiem/, 3 trang mục (Du lịch, Khám phá ẩm thực, Vui chơi giải trí)
+// và bài trải nghiệm. Khung trang dùng .landing ở _trang-chu.scss.
+
+// ---------- Màu theo danh mục ----------
+// Thẻ bài, thẻ mục và hộp thông tin mang class danh mục (duong, an, choi...).
+// --cat / --cat-bg là màu của danh mục đó; mặc định màu Du lịch.
+.trip, .muc-card, .info-box {
+  --cat: var(--cat-duong);
+  --cat-bg: var(--cat-duong-bg);
+}
+@each $dm in $danh-muc {
+  .trip.#{$dm}, .muc-card.#{$dm}, .info-box.#{$dm} {
+    --cat: var(--cat-#{$dm});
+    --cat-bg: var(--cat-#{$dm}-bg);
+  }
+}
+
+// ---------- Trang tổng: thẻ dẫn vào từng mục ----------
+.muc-grid {
+  list-style: none;
+  margin: 0 0 3rem;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+}
+.muc-card a {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 100%;
+  padding: 1.4rem 1.4rem 1.2rem;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--cat);
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+  text-decoration: none;
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+
+  &:hover, &:focus-visible { border-color: var(--cat); transform: translateY(-4px); box-shadow: var(--shadow), 0 12px 28px rgba(22, 37, 45, 0.12); }
+  &:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+}
+.muc-name { font-size: 1.3rem; font-style: italic; color: var(--cat); }
+.muc-blurb { font-size: 0.92rem; color: var(--ink-soft); flex: 1; }
+.muc-count {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+
+  .arrow { display: inline-block; transition: transform 0.2s ease; }
+}
+.muc-card a:hover .muc-count .arrow { transform: translateX(3px); }
+
+// ---------- Danh sách bài (dùng chung cho cả 3 mục và trang tổng) ----------
+.trips-intro { max-width: 62ch; margin: 0 0 2.5rem; font-size: 1.05rem; color: var(--ink-soft); }
+.trips { list-style: none; margin: 0; padding: 0; display: grid; gap: 2.5rem; }
+
+.trip {
+  display: grid;
+  grid-template-columns: 20rem 1fr;
+  gap: 1.75rem;
+  align-items: start;
+
+  @media (max-width: 720px) { grid-template-columns: 1fr; gap: 1rem; }
+}
+
+.trip-media {
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: var(--paper-raised);
+  aspect-ratio: 4 / 3;
+
+  img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+}
+.trip:hover .trip-media img { transform: scale(1.04); }
+
+// Chưa có ảnh bìa thì hiện khối vân màu thay vì ảnh vỡ
+.trip-media.empty {
+  display: flex; align-items: center; justify-content: center;
+  background: repeating-linear-gradient(45deg, var(--cat-bg), var(--cat-bg) 10px, var(--paper-raised) 10px, var(--paper-raised) 20px);
+  color: var(--cat);
+  font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+}
+
+.trip-body {
+  .tag {
+    display: inline-block;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--cat);
+    margin-bottom: 0.35rem;
+  }
+  h3 { margin: 0 0 0.4rem; font-size: 1.45rem; font-weight: 500; text-wrap: balance; }
+  p { margin: 0 0 0.8rem; color: var(--ink-soft); font-size: 0.95rem; }
+}
+.trip-meta {
+  display: flex; flex-wrap: wrap; gap: 0.4rem 1rem;
+  font-size: 0.74rem; color: var(--ink-soft); margin-bottom: 0.8rem;
+
+  // Trường đầu tiên (địa điểm / quán) tô màu danh mục
+  .location, .place { color: var(--cat); }
+}
+
+.trips-empty {
+  border: 1px dashed var(--line);
+  border-radius: 1rem;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+// ---------- Hộp thông tin đầu bài trải nghiệm ----------
+.info-box {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 0.9rem 1.5rem;
+  margin: 1.75rem 0 2rem;
+  padding: 1.1rem 1.3rem;
+  background: var(--cat-bg);
+  border-left: 3px solid var(--cat);
+  border-radius: 0.9rem;
+
+  div { min-width: 0; }
+  dt {
+    font-family: $font-mono;
+    font-size: 0.66rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cat);
+    margin-bottom: 0.2rem;
+  }
+  dd { margin: 0; font-size: 0.95rem; }
+}
+
+// Tắt hiệu ứng của file này
+@include giam-chuyen-dong {
+  .trip-media img, .trip:hover .trip-media img { transition: none; transform: none; }
+  .muc-card a, .muc-count .arrow { transition: none; }
+  .muc-card a:hover, .muc-card a:focus-visible, .muc-card a:hover .muc-count .arrow { transform: none; }
+}

@@ -1,0 +1,48 @@
+---
+layout: default
+nav: experience
+title: Trải nghiệm
+permalink: /trai-nghiem/
+description: "Du lịch, ăn uống và vui chơi của Trịnh Mạnh Hoàng — không theo lịch, chỉ khi có điều muốn kể."
+---
+{%- assign keys = "duong,an,choi" | split: "," -%}
+
+<header class="masthead reveal">
+  <div class="masthead-inner">
+    <p class="route mono">Trải nghiệm</p>
+    <h1 class="wordmark">Trải nghiệm</h1>
+    <p class="mission">Đi, ăn và chơi — không theo lịch, chỉ khi mình có điều muốn kể.</p>
+  </div>
+</header>
+
+<main class="landing">
+  <ul class="muc-grid">
+    {%- for key in keys %}
+    {%- assign c = site.data.categories[key] %}
+    {%- assign so_bai = site.categories[key].size | default: 0 %}
+    <li class="muc-card reveal {{ key }}">
+      <a href="{{ c.url | relative_url }}">
+        <span class="muc-name">{{ c.label }}</span>
+        <span class="muc-blurb">{{ c.blurb }}</span>
+        <span class="muc-count mono">{% if so_bai > 0 %}{{ so_bai }} bài{% else %}chưa có bài{% endif %} <span class="arrow" aria-hidden="true">→</span></span>
+      </a>
+    </li>
+    {%- endfor %}
+  </ul>
+
+  {%- comment -%} 4 bài mới nhất của cả ba mục {%- endcomment -%}
+  {%- assign tong = 0 %}
+  {%- for p in site.posts %}{% if keys contains p.category %}{% assign tong = tong | plus: 1 %}{% endif %}{% endfor %}
+  {%- if tong > 0 %}
+  <h2 class="section-label reveal">Mới nhất</h2>
+  <ol class="trips">
+    {%- assign dem = 0 %}
+    {%- for p in site.posts %}
+    {%- if dem < 4 and keys contains p.category %}
+    {% include the-bai.html post=p show_label=true %}
+    {%- assign dem = dem | plus: 1 %}
+    {%- endif %}
+    {%- endfor %}
+  </ol>
+  {%- endif %}
+</main>

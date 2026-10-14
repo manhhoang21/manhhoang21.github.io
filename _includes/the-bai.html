@@ -1,0 +1,31 @@
+{%- comment -%}
+  Thẻ một bài trải nghiệm trong danh sách.
+  Dùng: {% include the-bai.html post=bai %}
+  Tuỳ chọn: show_label=true -> hiện tên mục (dùng ở trang tổng, nơi trộn nhiều mục)
+  Các thông tin nhỏ dưới tiêu đề lấy từ fields có card: true trong _data/categories.yml.
+{%- endcomment -%}
+{%- assign p = include.post -%}
+{%- assign c = site.data.categories[p.category] -%}
+<li class="trip reveal {{ p.category }}">
+  {%- if p.cover %}
+  <a class="trip-media" href="{{ p.url | relative_url }}" tabindex="-1" aria-hidden="true">
+    <img src="{{ site.cdn_url }}/{{ p.cover }}" alt="" loading="lazy" width="640" height="480" />
+  </a>
+  {%- else %}
+  <span class="trip-media empty">chưa có ảnh</span>
+  {%- endif %}
+  <div class="trip-body">
+    {%- if include.show_label %}
+    <span class="tag mono">{{ c.label }}</span>
+    {%- endif %}
+    <h3><a class="underline-link" href="{{ p.url | relative_url }}">{{ p.title }}</a></h3>
+    <div class="trip-meta mono">
+      {%- for f in c.fields %}
+      {%- if f.card and p[f.key] %}<span class="{{ f.key }}">{{ p[f.key] }}{{ f.suffix }}</span>{% endif %}
+      {%- endfor %}
+      <span>{{ p.date | date: "%d.%m.%Y" }}</span>
+    </div>
+    {{ p.excerpt }}
+    <a class="readmore underline-link" href="{{ p.url | relative_url }}">Xem chi tiết <span class="arrow" aria-hidden="true">→</span></a>
+  </div>
+</li>

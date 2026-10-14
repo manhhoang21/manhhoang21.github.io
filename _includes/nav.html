@@ -1,8 +1,38 @@
-<nav class="site-nav mono">
+<nav class="site-nav mono" aria-label="Điều hướng chính">
   <div class="site-nav-inner">
     <a class="brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
     {%- for item in site.data.nav %}
+    {%- if item.children %}
+    <details class="nav-drop">
+      <summary{% if page.nav == item.key %} class="is-current"{% endif %}>{{ item.label }}</summary>
+      <ul class="nav-drop-list">
+        <li><a href="{{ item.url | relative_url }}"{% if page.url == item.url %} aria-current="page"{% endif %}>Tất cả {{ item.label | downcase }}</a></li>
+        {%- for child in item.children %}
+        <li><a href="{{ child.url | relative_url }}"{% if page.url == child.url %} aria-current="page"{% endif %}>{{ child.label }}</a></li>
+        {%- endfor %}
+      </ul>
+    </details>
+    {%- else %}
     <a href="{{ item.url | relative_url }}"{% if page.nav == item.key %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endif %}
     {%- endfor %}
   </div>
 </nav>
+<script>
+// Đóng menu xổ xuống khi bấm ra ngoài hoặc nhấn Esc
+(function () {
+  var drops = document.querySelectorAll('.nav-drop');
+  if (!drops.length) return;
+  document.addEventListener('click', function (e) {
+    for (var i = 0; i < drops.length; i++) {
+      if (drops[i].open && !drops[i].contains(e.target)) drops[i].open = false;
+    }
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    for (var i = 0; i < drops.length; i++) {
+      if (drops[i].open) { drops[i].open = false; drops[i].querySelector('summary').focus(); }
+    }
+  });
+})();
+</script>

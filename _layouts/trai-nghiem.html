@@ -1,0 +1,44 @@
+---
+layout: default
+---
+{%- comment -%}
+  Bài trải nghiệm (du lịch, ẩm thực, vui chơi). Tự áp cho bài trong _posts/du-lich|am-thuc|vui-choi/.
+  Hộp thông tin lấy các fields của mục trong _data/categories.yml; trường nào bỏ trống thì không hiện.
+{%- endcomment -%}
+{%- assign c = site.data.categories[page.category] -%}
+{%- assign mins = content | number_of_words | divided_by: 200 | plus: 1 -%}
+{%- capture thong_tin -%}
+  {%- for f in c.fields -%}
+    {%- if page[f.key] -%}
+    <div><dt>{{ f.label }}</dt><dd>{{ page[f.key] }}{{ f.suffix }}</dd></div>
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+{%- assign thong_tin = thong_tin | strip -%}
+
+<main class="article reveal">
+  <span class="stamp {{ page.category }}">{{ c.label }}</span>
+  <h1>{{ page.title }}</h1>
+  <div class="meta mono">
+    <span>{{ page.date | date: "%d.%m.%Y" }}</span>
+    <span>{{ mins }} phút đọc</span>
+  </div>
+
+  {%- if page.cover %}
+  {% include img.html src=page.cover alt=page.title %}
+  {%- endif %}
+
+  {%- if thong_tin != "" %}
+  <dl class="info-box {{ page.category }}">
+    {{ thong_tin }}
+  </dl>
+  {%- endif %}
+
+  <div class="article-body">
+    {{ content }}
+  </div>
+</main>
+
+<div class="post-foot">
+  <a class="backlink" href="{{ c.url | relative_url }}"><span class="arrow" aria-hidden="true">←</span> Về {{ c.label }}</a>
+</div>

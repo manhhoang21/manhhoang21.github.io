@@ -1,4 +1,5 @@
 # Đổi tên danh mục ở đây là đổi cả site (nav, tab, nhãn bài viết)
+# Thêm danh mục mới: nhớ thêm màu trong _sass/_bien.scss (thiếu màu thì build báo lỗi).
 nghe:
   label: Góc nghề
   cadence: 2–3 bài/tháng
@@ -7,11 +8,48 @@ ngam:
   label: Ngẫm
   cadence: ~1 bài/tháng
   blurb: Bài ngắn nối chuyện nghề với chuyện đời
+
+# ---------- Trải nghiệm ----------
+# Không theo lịch: chỉ có bài khi mình muốn chia sẻ.
+# url: trang danh sách của mục. Bài đặt trong _posts/<thu-muc>/ tự vào mục (xem defaults trong _config.yml).
+# fields: hộp thông tin đầu bài, lấy từ front matter. Trường nào bỏ trống thì không hiện.
+#   card: true  -> hiện thêm trên thẻ bài ở trang danh sách
+#   suffix      -> chữ thêm sau giá trị (vd "/10")
 duong:
-  label: Trên đường
-  cadence: khi có chuyến đi
-  blurb: Nhật ký chuyến đi, địa điểm, mẹo đi lại
+  label: Du lịch
+  cadence: khi muốn chia sẻ
+  blurb: Nhật ký chuyến đi, địa điểm, chi phí và mẹo đi lại
+  url: /trai-nghiem/du-lich/
+  folder: _posts/du-lich/
+  fields:
+    - { key: location, label: Địa điểm, card: true }
+    - { key: days, label: Số ngày, card: true, suffix: " ngày" }
+    - { key: budget, label: Chi phí }
+    - { key: transport, label: Di chuyển }
+    - { key: season, label: Nên đi vào }
 an:
-  label: Ăn gì hôm nay
-  cadence: khi có chất liệu
+  label: Khám phá ẩm thực
+  cadence: khi muốn chia sẻ
   blurb: Quán ruột, món địa phương, ẩm thực vùng miền
+  url: /trai-nghiem/am-thuc/
+  folder: _posts/am-thuc/
+  fields:
+    - { key: place, label: Quán, card: true }
+    - { key: address, label: Địa chỉ }
+    - { key: price, label: Giá, card: true }
+    - { key: must_try, label: Nên gọi }
+    - { key: rating, label: Điểm, card: true, suffix: "/10" }
+choi:
+  label: Vui chơi giải trí
+  cadence: khi muốn chia sẻ
+  blurb: Khu vui chơi, công viên, bảo tàng, hoạt động ngoài trời
+  url: /trai-nghiem/vui-choi/
+  folder: _posts/vui-choi/
+  fields:
+    - { key: place, label: Địa điểm, card: true }
+    - { key: address, label: Địa chỉ }
+    - { key: ticket, label: Giá vé, card: true }
+    - { key: hours, label: Giờ mở cửa }
+    - { key: duration, label: Nên dành }
+    - { key: good_for, label: Hợp với }
+    - { key: rating, label: Điểm, card: true, suffix: "/10" }
