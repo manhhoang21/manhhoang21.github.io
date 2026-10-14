@@ -1,13 +1,15 @@
 // ---------- Biến màu ----------
 // Mặc định sáng, tự sang tối theo hệ điều hành, hoặc ép bằng data-theme trên <html>.
-:root { @include bien-mau($mau-sang); }
+// Nút đổi chế độ (_includes/nav.html) gắn data-theme lên <html> và nhớ lựa chọn.
+// color-scheme để thanh cuộn, ô nhập liệu của trình duyệt đổi màu theo.
+:root { @include bien-mau($mau-sang); color-scheme: light; }
 
 @media (prefers-color-scheme: dark) {
-  :root { @include bien-mau($mau-toi); }
+  :root { @include bien-mau($mau-toi); color-scheme: dark; }
 }
 
-:root[data-theme="dark"] { @include bien-mau($mau-toi); }
-:root[data-theme="light"] { @include bien-mau($mau-sang); }
+:root[data-theme="dark"] { @include bien-mau($mau-toi); color-scheme: dark; }
+:root[data-theme="light"] { @include bien-mau($mau-sang); color-scheme: light; }
 
 // ---------- Nền tảng ----------
 * { box-sizing: border-box; }

@@ -16,9 +16,40 @@
     <a href="{{ item.url | relative_url }}"{% if page.nav == item.key %} aria-current="page"{% endif %}>{{ item.label }}</a>
     {%- endif %}
     {%- endfor %}
+    <button class="theme-toggle" type="button" aria-label="Chuyển sang chế độ tối" title="Chế độ sáng / tối">
+      <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M20.5 14.3A8.5 8.5 0 0 1 9.7 3.5a8.5 8.5 0 1 0 10.8 10.8Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
   </div>
 </nav>
 <script>
+// Nút đổi chế độ sáng/tối. Lựa chọn lưu trong localStorage; script trong <head> áp lại ở lần tải sau.
+(function () {
+  var btn = document.querySelector('.theme-toggle');
+  if (!btn) return;
+  var root = document.documentElement;
+  var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+
+  function cheDoHienTai() {
+    var chon = root.getAttribute('data-theme');
+    if (chon === 'light' || chon === 'dark') return chon;
+    return mq && mq.matches ? 'dark' : 'light';
+  }
+  function capNhatNhan() {
+    btn.setAttribute('aria-label', cheDoHienTai() === 'dark' ? 'Chuyển sang chế độ sáng' : 'Chuyển sang chế độ tối');
+  }
+
+  btn.addEventListener('click', function () {
+    var moi = cheDoHienTai() === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', moi);
+    try { localStorage.setItem('theme', moi); } catch (e) {}
+    capNhatNhan();
+  });
+  // Chưa chọn gì mà hệ điều hành đổi chế độ -> cập nhật nhãn nút cho đúng
+  if (mq && mq.addEventListener) mq.addEventListener('change', capNhatNhan);
+  capNhatNhan();
+})();
+
 // Đóng menu xổ xuống khi bấm ra ngoài hoặc nhấn Esc
 (function () {
   var drops = document.querySelectorAll('.nav-drop');

@@ -98,6 +98,38 @@
   }
 }
 
+// ---------- Nút đổi chế độ sáng / tối ----------
+// Đang sáng -> hiện mặt trăng (bấm để sang tối); đang tối -> hiện mặt trời.
+.theme-toggle {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  color: var(--band-fg);
+  background: transparent;
+  border: 1px solid var(--band-line);
+  border-radius: 999px;
+  cursor: pointer;
+  opacity: 0.75;
+  transition: opacity 0.2s ease, border-color 0.2s ease;
+
+  &:hover, &:focus-visible { opacity: 1; border-color: var(--accent); }
+  &:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .icon-sun { display: none; }
+}
+@mixin nut-che-do-toi {
+  .theme-toggle .icon-moon { display: none; }
+  .theme-toggle .icon-sun { display: block; }
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { @include nut-che-do-toi; }
+}
+:root[data-theme="dark"] { @include nut-che-do-toi; }
+
 // ---------- Masthead ----------
 .masthead {
   background: var(--band-bg);
@@ -240,5 +272,5 @@ footer {
 
 // Tắt hiệu ứng của menu xổ xuống (chỉ khai báo trong file này)
 @include giam-chuyen-dong {
-  .nav-drop summary { transition: none; }
+  .nav-drop summary, .theme-toggle { transition: none; }
 }
