@@ -24,10 +24,14 @@
 
 @include giam-chuyen-dong {
   body { transition: none; }
+}
 
-  // Hiện ngay, không mờ, không trượt (kể cả trạng thái cuộn lên)
-  .js-anim .reveal,
-  .js-anim .reveal[data-scroll-direction="up"]:not(.is-in) {
+// Hiện dần là hiệu ứng lớn: tắt ở mức Tắt và Vừa.
+@include tat-hieu-ung-lon {
+  // Hiện ngay, không mờ, không trượt (kể cả trạng thái cuộn lên).
+  // Không ghi .js-anim: class đó nằm trên <html>, mixin đã thêm :root phía trước.
+  .reveal,
+  .reveal[data-scroll-direction="up"]:not(.is-in) {
     opacity: 1;
     transform: none;
     transition: none;

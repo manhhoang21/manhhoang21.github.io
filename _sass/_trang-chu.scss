@@ -213,8 +213,13 @@
   }
 }
 
-// Tắt hiệu ứng của file này: không trượt khi hover, chỉ giữ đổi màu viền
+// Mức Vừa: bỏ hiện dần nhưng giữ hover. Đè khối tắt .reveal trong _hieu-ung.scss (0,3,0) bằng (0,4,0).
+// Phải đứng TRƯỚC khối giam-chuyen-dong bên dưới, vì ở mức Tắt cả hai khối cùng áp dụng.
+@include tat-hieu-ung-lon {
+  .entry.reveal { transition: padding 0.25s ease, border-color 0.25s ease; }
+}
+// Mức Tắt: không trượt khi hover, chỉ giữ đổi màu viền
 @include giam-chuyen-dong {
-  .entry, .js-anim .entry.reveal { transition: none; }
+  .entry, .entry.reveal { transition: none; }
   .entry:hover { padding-left: 0; }
 }

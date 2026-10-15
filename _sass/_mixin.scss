@@ -5,12 +5,35 @@
   }
 }
 
-// Phần tắt/giảm chuyển động cho người bật "giảm chuyển động" trong hệ điều hành.
+// Mức hiệu ứng người xem chọn trong bảng Thiết lập nằm ở data-motion trên <html>:
+//   reduce = Tắt, medium = Vừa, full = Đầy đủ. Chưa chọn -> theo hệ điều hành
+//   (bật "giảm chuyển động" thì như Tắt, không thì như Đầy đủ). Xem _layouts/default.html.
+//
+// giam-chuyen-dong: tắt MỌI hiệu ứng. Có hiệu lực ở mức Tắt.
+//   = (hệ điều hành bật giảm VÀ người xem chưa chọn Vừa/Đầy đủ) HOẶC người xem chọn Tắt.
+// tat-hieu-ung-lon (bên dưới): tắt hiệu ứng lớn (hiện dần khi cuộn, phóng ảnh). Có hiệu lực ở mức Tắt và Vừa.
+//
+// Mixin tự thêm :root phía trước mọi selector bên trong, nên KHÔNG viết class nằm trên chính
+// <html> (vd .js-anim) trong khối này — viết thẳng phần tử con (.reveal, body, .cta...).
+//
 // Mỗi hiệu ứng mới cần kèm một khối này. Đặt ở đâu:
 // - Hiệu ứng chỉ nằm trong một file -> đặt khối ở cuối chính file đó.
 // - Một khối tắt hiệu ứng của nhiều file cùng lúc -> đặt ở _hieu-ung.scss (import cuối cùng).
 @mixin giam-chuyen-dong {
   @media (prefers-reduced-motion: reduce) {
+    :root:not([data-motion="full"]):not([data-motion="medium"]) {
+      @content;
+    }
+  }
+  :root[data-motion="reduce"] {
+    @content;
+  }
+}
+
+// Hiệu ứng lớn: tắt ở mức Tắt và cả mức Vừa. Hover nhẹ thì dùng giam-chuyen-dong.
+@mixin tat-hieu-ung-lon {
+  @include giam-chuyen-dong { @content; }
+  :root[data-motion="medium"] {
     @content;
   }
 }

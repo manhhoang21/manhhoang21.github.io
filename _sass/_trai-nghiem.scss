@@ -143,8 +143,12 @@
 }
 
 // Tắt hiệu ứng của file này
-@include giam-chuyen-dong {
+// Phóng ảnh là hiệu ứng lớn: tắt ở mức Tắt và Vừa
+@include tat-hieu-ung-lon {
   .trip-media img, .trip:hover .trip-media img { transition: none; transform: none; }
+}
+// Thẻ mục nổi lên khi hover là hiệu ứng nhẹ: chỉ tắt ở mức Tắt
+@include giam-chuyen-dong {
   .muc-card a, .muc-count .arrow { transition: none; }
   .muc-card a:hover, .muc-card a:focus-visible, .muc-card a:hover .muc-count .arrow { transform: none; }
 }

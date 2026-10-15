@@ -98,10 +98,18 @@
   }
 }
 
-// ---------- Nút đổi chế độ sáng / tối ----------
-// Đang sáng -> hiện mặt trăng (bấm để sang tối); đang tối -> hiện mặt trời.
-.theme-toggle {
+// ---------- Thiết lập (bánh răng): giao diện + chuyển động ----------
+// Chỉ hiện khi có JS (<html class="js">), vì không có JS thì nút không làm gì được.
+// Bảng neo vào mép phải thanh nav (không neo vào nút): khi nav xuống dòng trên màn hình hẹp,
+// nút có thể rớt về bên trái, neo theo nút thì bảng sẽ tràn khỏi màn hình.
+.site-nav-inner { position: relative; }
+.settings {
+  display: none;
   align-self: center;
+}
+.js .settings { display: block; }
+
+.settings-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -116,19 +124,147 @@
   opacity: 0.75;
   transition: opacity 0.2s ease, border-color 0.2s ease;
 
-  &:hover, &:focus-visible { opacity: 1; border-color: var(--accent); }
+  svg { display: block; transition: transform 0.4s ease; }
+  &:hover, &:focus-visible, &[aria-expanded="true"] { opacity: 1; border-color: var(--accent); }
+  &:hover svg, &[aria-expanded="true"] svg { transform: rotate(60deg); }
   &:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+}
 
-  .icon-sun { display: none; }
+.settings-panel {
+  position: absolute;
+  top: 100%;
+  right: 1.5rem; // bằng padding ngang của .site-nav-inner
+  z-index: 20;
+  width: 13rem;
+  max-width: calc(100% - 3rem);
+  padding: 0.75rem 0.8rem;
+  color: var(--band-fg);
+  background: var(--band-bg);
+  border: 1px solid var(--band-line);
+  border-radius: 0.85rem;
+  box-shadow: var(--shadow);
+  // Bỏ kiểu chữ in hoa, giãn chữ của thanh nav
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-size: 0.8rem;
+
+  &[hidden] { display: none; }
 }
-@mixin nut-che-do-toi {
-  .theme-toggle .icon-moon { display: none; }
-  .theme-toggle .icon-sun { display: block; }
+.settings-group {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  & + & { margin-top: 0.6rem; padding-top: 0.55rem; border-top: 1px solid var(--band-line); }
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) { @include nut-che-do-toi; }
+.settings-title {
+  display: block;
+  padding: 0;
+  margin-bottom: 0.55rem;
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.65;
 }
-:root[data-theme="dark"] { @include nut-che-do-toi; }
+
+// ---- Công tắc mặt trời / mặt trăng (role="switch", aria-checked="true" = tối)
+.theme-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.1rem;
+  color: inherit;
+  background: none;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+
+  svg { display: block; opacity: 0.45; transition: opacity 0.2s ease; }
+  &[aria-checked="false"] .theme-switch-sun,
+  &[aria-checked="true"] .theme-switch-moon { opacity: 1; color: var(--accent); }
+  &:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+}
+.theme-switch-track {
+  position: relative;
+  width: 2.1rem;
+  height: 1.15rem;
+  border: 1px solid var(--band-line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.theme-switch-knob {
+  position: absolute;
+  top: 0.1rem;
+  left: 0.1rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--band-fg);
+  transition: transform 0.2s ease;
+}
+.theme-switch[aria-checked="true"] {
+  .theme-switch-track { background: var(--accent); border-color: var(--accent); }
+  .theme-switch-knob { transform: translateX(0.95rem); }
+}
+.theme-switch:hover .theme-switch-track { border-color: var(--accent); }
+
+// ---- Mức hiệu ứng: 3 ô chữ Tắt · Vừa · Đầy đủ, ô đang chọn có nền và viền (data-level do JS gắn)
+.level-steps {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+.level-step {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: 0.3rem 0.2rem;
+  border: 1px solid transparent;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  text-align: center;
+
+  // Radio thật để phím mũi tên và trình đọc màn hình chạy sẵn; ẩn đi, chỉ hiện chữ
+  input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+  }
+}
+.level-text { font-size: 0.7rem; line-height: 1.3; opacity: 0.7; white-space: nowrap; }
+.level-step:hover { background: rgba(255, 255, 255, 0.06); }
+.level-step input:checked ~ .level-text { opacity: 1; color: var(--accent); }
+.level-step input:focus-visible ~ .level-text { outline: 2px solid var(--accent); outline-offset: 2px; }
+.level[data-level="1"] [data-step="1"],
+.level[data-level="2"] [data-step="2"],
+.level[data-level="3"] [data-step="3"] {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--band-line);
+}
+
+.level-reset {
+  display: block;
+  margin: 0.55rem 0 0 auto;
+  padding: 0.1rem 0.2rem;
+  font: inherit;
+  font-size: 0.7rem;
+  color: inherit;
+  background: none;
+  border: 0;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  opacity: 0.75;
+
+  &:hover:not(:disabled), &:focus-visible { opacity: 1; }
+  &:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  // Đang theo hệ thống: nút mờ, không bấm được
+  &:disabled { opacity: 0.35; cursor: default; }
+}
 
 // ---------- Masthead ----------
 .masthead {
@@ -270,7 +406,9 @@ footer {
   .aliases span:not(:last-child)::after { content: "·"; margin: 0 0.5em; opacity: 0.5; }
 }
 
-// Tắt hiệu ứng của menu xổ xuống (chỉ khai báo trong file này)
+// Tắt hiệu ứng của menu xổ xuống và nút Thiết lập (chỉ khai báo trong file này)
 @include giam-chuyen-dong {
-  .nav-drop summary, .theme-toggle { transition: none; }
+  .nav-drop summary, .settings-btn, .settings-btn svg { transition: none; }
+  .settings-btn:hover svg, .settings-btn[aria-expanded="true"] svg { transform: none; }
+  .theme-switch svg, .theme-switch-track, .theme-switch-knob { transition: none; }
 }
