@@ -15,7 +15,7 @@
 .js-anim .reveal {
   opacity: 0;
   transform: translateY(22px);
-  transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: $hien-dan-transition;
   will-change: opacity, transform;
 
   &.is-in { opacity: 1; transform: translateY(0); }

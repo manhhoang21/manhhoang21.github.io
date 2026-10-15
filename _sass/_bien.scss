@@ -5,6 +5,10 @@
 $font-serif: Cambria, "Noto Serif", "Times New Roman", Times, serif;
 $font-mono: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, "Liberation Mono", monospace;
 
+// Hiệu ứng hiện dần khi cuộn (.reveal). Để ở đây vì phần tử vừa hiện dần vừa có transition riêng
+// (vd .entry ở _trang-chu.scss) phải gộp lại trong một khai báo transition, dùng chung giá trị này.
+$hien-dan-transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.22, 0.61, 0.36, 1);
+
 // Danh mục bài viết, trùng key trong _data/categories.yml.
 // Thêm danh mục mới: thêm key vào đây, rồi thêm 2 màu "cat-<key>" và "cat-<key>-bg"
 // vào cả $mau-sang lẫn $mau-toi. Nhãn, tab, chấm màu sẽ tự sinh. Quên màu thì build báo lỗi (cuối file).
@@ -22,15 +26,15 @@ $mau-sang: (
   "band-bg": #172b38,
   "band-fg": #f5f8f6,
   "band-line": #294657,
-  "cat-nghe": #167d83,
+  "cat-nghe": #15777c,
   "cat-nghe-bg": #dff3ef,
-  "cat-duong": #b45a31,
+  "cat-duong": #aa552e,
   "cat-duong-bg": #fff0df,
-  "cat-an": #c2465c,
+  "cat-an": #b93d53,
   "cat-an-bg": #fce8eb,
   "cat-ngam": #7657a5,
   "cat-ngam-bg": #eee8fa,
-  "cat-choi": #3073b8,
+  "cat-choi": #2d6dae,
   "cat-choi-bg": #e4effc,
   "shadow": (0 2px 5px rgba(24,37,45,0.04), 0 16px 38px rgba(24,37,45,0.09))
 );

@@ -1,11 +1,14 @@
 {%- comment -%}
   Hiệu ứng hiện dần khi cuộn cho các phần tử .reveal. Đặt ở cuối trang.
+  Chỉ theo dõi .reveal, vì CSS chỉ có hiệu ứng cho .reveal: muốn phần tử nào hiện dần thì gắn class đó.
+  Không gắn .reveal cho phần thấy ngay khi mở trang (masthead, tiêu đề/khối bài viết): CSS ẩn chúng
+  từ trước khi vẽ, còn script này chạy ở cuối <body>, nên đầu trang sẽ trống cho tới khi script chạy.
   Class js-anim được bật trong <head> của layout mặc định.
   CSS ở _sass/_hieu-ung.scss.
 {%- endcomment -%}
 <script>
 (function () {
-  var els = document.querySelectorAll('.reveal, .article-body > *, .article > .stamp, .article > h1, .article > .meta, .article > .post-img, .article > .info-box, .job > .proj, .skill-grid > div, .facts > div');
+  var els = document.querySelectorAll('.reveal');
   if (!els.length) return;
 
   // Không hỗ trợ IntersectionObserver -> hiện hết ngay, không chờ cuộn.

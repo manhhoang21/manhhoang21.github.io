@@ -156,6 +156,11 @@
 
   &:hover { padding-left: 0.55rem; border-color: var(--accent); }
 }
+// .entry trên trang chủ còn có .reveal: transition của .js-anim .reveal (0,2,0) sẽ đè transition hover
+// ở trên (0,1,0). Gộp cả hai vào một khai báo để hover vẫn chạy mượt.
+.js-anim .entry.reveal {
+  transition: $hien-dan-transition, padding 0.25s ease, border-color 0.25s ease;
+}
 
 // ---------- Khung trang landing ----------
 // .landing đang dùng cho các trang Trải nghiệm.
@@ -210,6 +215,6 @@
 
 // Tắt hiệu ứng của file này: không trượt khi hover, chỉ giữ đổi màu viền
 @include giam-chuyen-dong {
-  .entry { transition: none; }
+  .entry, .js-anim .entry.reveal { transition: none; }
   .entry:hover { padding-left: 0; }
 }
