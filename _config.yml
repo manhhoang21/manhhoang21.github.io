@@ -56,3 +56,4 @@ exclude:
   - Gemfile.lock
   - README.md
   - scripts/
+  - vendor/   # gem do bundler cài trong CI (.github/workflows/kiem-tra.yml)
