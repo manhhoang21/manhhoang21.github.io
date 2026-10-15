@@ -15,12 +15,25 @@
 .js-anim .reveal {
   opacity: 0;
   transform: translateY(22px);
-  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: $hien-dan-transition;
   will-change: opacity, transform;
 
-  &.is-in { opacity: 1; transform: none; }
+  &.is-in { opacity: 1; transform: translateY(0); }
+  &[data-scroll-direction="up"]:not(.is-in) { transform: translateY(-22px); }
 }
 
 @include giam-chuyen-dong {
-  .js-anim .reveal { opacity: 1; transform: none; transition: none; }
+  body { transition: none; }
+}
+
+// Hiện dần là hiệu ứng lớn: tắt ở mức Tắt và Vừa.
+@include tat-hieu-ung-lon {
+  // Hiện ngay, không mờ, không trượt (kể cả trạng thái cuộn lên).
+  // Không ghi .js-anim: class đó nằm trên <html>, mixin đã thêm :root phía trước.
+  .reveal,
+  .reveal[data-scroll-direction="up"]:not(.is-in) {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }

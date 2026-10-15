@@ -1,9 +1,17 @@
 - key: home
   label: Trang chủ
   url: /
-- key: trips
-  label: Chuyến đi
-  url: /chuyen-di/
+# Mục có children hiện thành menu xổ xuống; url của mục cha là trang tổng.
+- key: experience
+  label: Trải nghiệm
+  url: /trai-nghiem/
+  children:
+    - label: Du lịch
+      url: /trai-nghiem/du-lich/
+    - label: Khám phá ẩm thực
+      url: /trai-nghiem/am-thuc/
+    - label: Vui chơi giải trí
+      url: /trai-nghiem/vui-choi/
 - key: about
   label: Giới thiệu
   url: /gioi-thieu/

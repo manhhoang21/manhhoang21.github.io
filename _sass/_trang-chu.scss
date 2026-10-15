@@ -1,55 +1,31 @@
 // Trang chủ (index.html)
 
-// ---------- Tab danh mục ----------
-.tabs {
-  max-width: 920px;
-  margin: 0 auto;
-  padding: 1.1rem 1.5rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem 1.6rem;
-  border-bottom: 1px solid var(--line);
-}
-.tab {
-  display: flex;
-  align-items: baseline;
-  gap: 0.5rem;
-  font-size: 0.85rem;
-
-  .dot {
-    width: 0.55em;
-    height: 0.55em;
-    border-radius: 50%;
-    flex: none;
-    transform: translateY(-0.05em);
-  }
-  .ratio {
-    font-size: 0.72rem;
-    color: var(--ink-soft);
-    opacity: 0.75;
-  }
-  @each $dm in $danh-muc {
-    &.#{$dm} .dot { background: var(--cat-#{$dm}); }
-  }
-}
-
 // ---------- Bố cục 2 cột ----------
 .layout {
-  max-width: 920px;
+  max-width: 1040px;
   margin: 0 auto;
-  padding: 2.5rem 1.5rem 4rem;
+  padding: 3.5rem 1.5rem 5rem;
   display: grid;
-  grid-template-columns: 15.5rem 1fr;
-  gap: 3rem;
+  grid-template-columns: 16rem 1fr;
+  gap: 3.5rem;
   align-items: start;
 
-  @media (max-width: 700px) { grid-template-columns: 1fr; gap: 2.5rem; }
+  @media (max-width: 700px) {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    .sidebar { position: static; }
+  }
 }
 
 // ---------- Sidebar ----------
 .sidebar {
   position: sticky;
-  top: 2rem;
+  top: 1.5rem;
+  padding: 1.5rem;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: 1.1rem;
+  box-shadow: var(--shadow);
 
   h2 {
     font-family: inherit;
@@ -71,7 +47,7 @@
   font-size: 0.85rem;
   margin: 0 0 1.75rem;
   padding-bottom: 1.75rem;
-  border-bottom: 1px dashed var(--line);
+  border-bottom: 1px solid var(--line);
 
   .mono { color: var(--accent-strong); }
 }
@@ -91,15 +67,31 @@
 .featured {
   background: var(--paper-raised);
   border: 1px solid var(--line);
-  border-radius: 4px;
-  padding: 2rem 2.2rem;
+  border-radius: 1.25rem;
+  padding: clamp(1.5rem, 4vw, 2.6rem);
   box-shadow: var(--shadow);
-  margin-bottom: 2.75rem;
+  margin-bottom: 3.5rem;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 13rem;
+    height: 13rem;
+    right: -5rem;
+    top: -6rem;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(229, 107, 75, 0.13), transparent 70%);
+    pointer-events: none;
+  }
 
   h2 {
+    position: relative;
     margin: 0 0 0.6rem;
-    font-size: 1.7rem;
-    font-weight: 400;
+    font-size: clamp(1.55rem, 3vw, 2.1rem);
+    font-weight: 500;
+    line-height: 1.25;
     text-wrap: balance;
   }
   p { margin: 0 0 1rem; color: var(--ink-soft); }
@@ -112,21 +104,27 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink-soft);
-  margin: 0 0 1.1rem;
+  margin: 0 0 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+
+  &::after { content: ""; height: 1px; flex: 1; background: var(--line); }
 }
 .entries {
   list-style: none;
   margin: 0;
   padding: 0;
 
-  .entry:last-child { border-bottom: 1px dashed var(--line); }
+  .entry:last-child { border-bottom: 1px solid var(--line); }
 }
 .entry {
   display: grid;
   grid-template-columns: 6.5rem 1fr;
   gap: 1.2rem;
   padding: 1.15rem 0;
-  border-top: 1px dashed var(--line);
+  border-top: 1px solid var(--line);
+  transition: padding 0.25s ease, border-color 0.25s ease;
 
   @media (max-width: 560px) { grid-template-columns: 1fr; gap: 0.35rem; }
 
@@ -139,7 +137,7 @@
   }
   h3 {
     margin: 0 0 0.35rem;
-    font-size: 1.08rem;
+    font-size: 1.18rem;
     font-weight: 600;
   }
   p { margin: 0; font-size: 0.9rem; color: var(--ink-soft); }
@@ -155,13 +153,20 @@
   }
   // Bài chưa viết: hiện như text thường, chưa bấm được
   .pending { color: var(--ink); }
+
+  &:hover { padding-left: 0.55rem; border-color: var(--accent); }
+}
+// .entry trên trang chủ còn có .reveal: transition của .js-anim .reveal (0,2,0) sẽ đè transition hover
+// ở trên (0,1,0). Gộp cả hai vào một khai báo để hover vẫn chạy mượt.
+.js-anim .entry.reveal {
+  transition: $hien-dan-transition, padding 0.25s ease, border-color 0.25s ease;
 }
 
 // ---------- Khung trang landing ----------
-// .landing đang dùng cho trang Chuyến đi.
+// .landing đang dùng cho các trang Trải nghiệm.
 // .intro, .cta, .landing-block, .cat-list còn lại từ trang chủ cũ, hiện không trang nào dùng.
 .landing {
-  max-width: 920px;
+  max-width: 1040px;
   margin: 0 auto;
   padding: 2.75rem 1.5rem 4rem;
 }
@@ -206,4 +211,15 @@
   @each $dm in $danh-muc {
     .#{$dm} .dot { background: var(--cat-#{$dm}); }
   }
+}
+
+// Mức Vừa: bỏ hiện dần nhưng giữ hover. Đè khối tắt .reveal trong _hieu-ung.scss (0,3,0) bằng (0,4,0).
+// Phải đứng TRƯỚC khối giam-chuyen-dong bên dưới, vì ở mức Tắt cả hai khối cùng áp dụng.
+@include tat-hieu-ung-lon {
+  .entry.reveal { transition: padding 0.25s ease, border-color 0.25s ease; }
+}
+// Mức Tắt: không trượt khi hover, chỉ giữ đổi màu viền
+@include giam-chuyen-dong {
+  .entry, .entry.reveal { transition: none; }
+  .entry:hover { padding-left: 0; }
 }

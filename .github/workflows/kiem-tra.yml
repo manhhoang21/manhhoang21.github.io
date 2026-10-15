@@ -1,0 +1,33 @@
+# Kiểm tra trước khi merge: build site bằng đúng bộ gem GitHub Pages, rồi kiểm tra link nội bộ.
+# Chỉ kiểm tra, KHÔNG deploy. master vẫn do GitHub Pages tự build và đưa lên site như cũ.
+name: Kiểm tra build
+
+on:
+  push:
+    branches-ignore: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  kiem-tra:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"   # GitHub Pages hiện build bằng Ruby 3.3
+          bundler-cache: true   # cài gem trong Gemfile và cache lại cho lần sau
+
+      - name: Build giống GitHub Pages
+        run: bundle exec jekyll build --strict_front_matter
+        env:
+          JEKYLL_ENV: production
+
+      - name: Kiểm tra link nội bộ
+        # Bỏ qua link ra ngoài (LinkedIn, ảnh CDN...) để CI không phụ thuộc mạng bên ngoài
+        run: bundle exec htmlproofer ./_site --disable-external

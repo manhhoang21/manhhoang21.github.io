@@ -1,0 +1,39 @@
+---
+layout: default
+---
+{%- comment -%}
+  Trang danh sách của một mục trải nghiệm. Trang dùng layout này khai báo:
+    category_key: duong | an | choi
+    mission, intro: (tuỳ chọn) câu dưới tiêu đề và đoạn mở đầu
+  Bài tự hiện khi có file trong thư mục của mục (xem _data/categories.yml).
+{%- endcomment -%}
+{%- assign key = page.category_key -%}
+{%- assign c = site.data.categories[key] -%}
+{%- assign bai_viet = site.categories[key] -%}
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="route mono"><a class="underline-link" href="{{ '/trai-nghiem/' | relative_url }}">Trải nghiệm</a><span class="sep">/</span>{{ c.label }}</p>
+    <h1 class="wordmark">{{ c.label }}</h1>
+    <p class="mission">{{ page.mission | default: c.blurb }}</p>
+  </div>
+</header>
+
+<main class="landing">
+  {%- if page.intro %}
+  <p class="trips-intro reveal">{{ page.intro }}</p>
+  {%- endif %}
+
+  {%- if bai_viet and bai_viet.size > 0 %}
+  <ol class="trips">
+    {%- for bai in bai_viet %}
+    {% include the-bai.html post=bai %}
+    {%- endfor %}
+  </ol>
+  {%- else %}
+  <div class="trips-empty reveal">
+    <p>Chưa có bài nào ở đây.</p>
+    <p class="mono" style="font-size:0.78rem">Mục này không theo lịch — khi nào có điều muốn kể, bài sẽ lên.</p>
+  </div>
+  {%- endif %}
+</main>

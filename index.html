@@ -5,7 +5,6 @@ title: Trịnh Mạnh Hoàng
 permalink: /
 description: "Ghi chép của Trịnh Mạnh Hoàng — lập trình viên Java — về nghề, và thỉnh thoảng là chuyện ngoài công việc."
 ---
-{%- assign order = "nghe,ngam,duong,an" | split: "," -%}
 
 <header class="masthead">
   <div class="masthead-inner">
@@ -15,18 +14,11 @@ description: "Ghi chép của Trịnh Mạnh Hoàng — lập trình viên Java 
   </div>
 </header>
 
-<nav class="tabs mono">
-  {%- for key in order %}
-  {%- assign c = site.data.categories[key] %}
-  <span class="tab {{ key }}"><span class="dot"></span>{{ c.label }} <span class="ratio">{{ c.cadence }}</span></span>
-  {%- endfor %}
-</nav>
-
 <div class="layout">
-  <aside class="sidebar">
+  <aside class="sidebar reveal">
     <h2 class="mono">Về mình</h2>
     <p class="bio">Lập trình viên Java, gần 5 năm làm hệ thống web doanh nghiệp — batch dữ liệu lớn, code legacy, đang đi sâu Spring Boot.</p>
-    <p class="cadence">Đăng bài <span class="mono">1 lần / tuần</span>, sáng Chủ Nhật. Chuyện nghề là phần giữ nhịp; chuyện đường và chuyện ăn chỉ lên khi có chất liệu thật.</p>
+    <p class="cadence">Đăng bài <span class="mono">1 lần / tuần</span>, sáng Chủ Nhật. Chuyện nghề là phần giữ nhịp; chuyện đi, ăn và chơi không theo lịch, chỉ lên khi mình muốn chia sẻ.</p>
     <p><a class="readmore underline-link" href="{{ '/gioi-thieu/' | relative_url }}">Kỹ năng &amp; kinh nghiệm <span class="arrow" aria-hidden="true">→</span></a></p>
   </aside>
 
@@ -34,7 +26,7 @@ description: "Ghi chép của Trịnh Mạnh Hoàng — lập trình viên Java 
     {%- if site.posts.size > 0 %}
     {%- assign featured = site.posts.first %}
     {%- assign mins = featured.content | number_of_words | divided_by: 200 | plus: 1 %}
-    <article class="featured">
+    <article class="featured reveal">
       <span class="stamp {{ featured.category }}">{{ site.data.categories[featured.category].label }}</span>
       <h2><a class="underline-link" href="{{ featured.url | relative_url }}">{{ featured.title }}</a></h2>
       <div class="meta mono">
@@ -47,10 +39,10 @@ description: "Ghi chép của Trịnh Mạnh Hoàng — lập trình viên Java 
     {%- endif %}
 
     {%- if site.posts.size > 1 %}
-    <h2 class="section-label">Bài trước</h2>
+    <h2 class="section-label reveal">Bài trước</h2>
     <ol class="entries">
       {%- for post in site.posts offset: 1 %}
-      <li class="entry {{ post.category }}">
+      <li class="entry reveal {{ post.category }}">
         <div class="when mono"><span class="date">{{ post.date | date: "%d.%m" }}</span>{{ post.date | date: "%Y" }}</div>
         <div>
           <span class="tag">{{ site.data.categories[post.category].label }}</span>
@@ -63,10 +55,10 @@ description: "Ghi chép của Trịnh Mạnh Hoàng — lập trình viên Java 
     {%- endif %}
 
     {%- if site.data.upcoming.size > 0 %}
-    <h2 class="section-label">Sắp ra mắt</h2>
+    <h2 class="section-label reveal">Sắp ra mắt</h2>
     <ol class="entries">
       {%- for item in site.data.upcoming %}
-      <li class="entry {{ item.category }}">
+      <li class="entry reveal {{ item.category }}">
         <div class="when mono"><span class="date">{{ item.date | date: "%d.%m" }}</span>{{ item.date | date: "%Y" }}</div>
         <div>
           <span class="tag">{{ site.data.categories[item.category].label }}</span>
@@ -76,7 +68,7 @@ description: "Ghi chép của Trịnh Mạnh Hoàng — lập trình viên Java 
       </li>
       {%- endfor %}
     </ol>
-    <p class="note">Bài <em>{{ site.data.categories.duong.label }}</em> và <em>{{ site.data.categories.an.label }}</em> không nằm trong lịch cố định — khi nào có chuyến đi thật, bài sẽ được chèn vào Chủ Nhật gần nhất và đẩy lịch trên lùi một tuần.</p>
+    <p class="note reveal">Bài <a class="underline-link" href="{{ '/trai-nghiem/' | relative_url }}">Trải nghiệm</a> (<em>{{ site.data.categories.duong.label }}</em>, <em>{{ site.data.categories.an.label }}</em>, <em>{{ site.data.categories.choi.label }}</em>) không nằm trong lịch này — chỉ lên khi mình có điều muốn chia sẻ.</p>
     {%- endif %}
   </section>
 </div>

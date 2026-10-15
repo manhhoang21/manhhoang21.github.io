@@ -1,0 +1,58 @@
+{%- comment -%}
+  Hiệu ứng hiện dần khi cuộn cho các phần tử .reveal. Đặt ở cuối trang.
+  Chỉ theo dõi .reveal, vì CSS chỉ có hiệu ứng cho .reveal: muốn phần tử nào hiện dần thì gắn class đó.
+  Không gắn .reveal cho phần thấy ngay khi mở trang (masthead, tiêu đề/khối bài viết): CSS ẩn chúng
+  từ trước khi vẽ, còn script này chạy ở cuối <body>, nên đầu trang sẽ trống cho tới khi script chạy.
+  Class js-anim được bật trong <head> của layout mặc định.
+  CSS ở _sass/_hieu-ung.scss.
+  Hiện dần là hiệu ứng lớn: chỉ chạy ở mức Đầy đủ. Mức Tắt hoặc Vừa (hoặc chưa chọn mà hệ điều hành bật
+  giảm chuyển động): hiện tất cả ngay, không theo dõi cuộn. Đổi mức trong bảng Thiết lập thì áp lại ngay
+  (sự kiện motionchange).
+{%- endcomment -%}
+<script>
+(function () {
+  var els = document.querySelectorAll('.reveal');
+  if (!els.length) return;
+
+  var root = document.documentElement;
+  var mq = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+
+  function dangGiam() {
+    var chon = root.getAttribute('data-motion');
+    if (chon === 'reduce' || chon === 'medium') return true;
+    if (chon === 'full') return false;
+    return !!(mq && mq.matches);
+  }
+  function hienHet() {
+    for (var i = 0; i < els.length; i++) els[i].classList.add('is-in');
+  }
+
+  // Không hỗ trợ IntersectionObserver -> hiện hết ngay, không chờ cuộn.
+  if (!('IntersectionObserver' in window)) { hienHet(); return; }
+
+  var lastScrollY = window.scrollY;
+  var io = new IntersectionObserver(function (entries) {
+    var currentScrollY = window.scrollY;
+    var direction = currentScrollY >= lastScrollY ? 'down' : 'up';
+    lastScrollY = currentScrollY;
+
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) entry.target.setAttribute('data-scroll-direction', direction);
+      entry.target.classList.toggle('is-in', entry.isIntersecting);
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+
+  function apDung() {
+    io.disconnect();
+    if (dangGiam()) { hienHet(); return; }
+    for (var j = 0; j < els.length; j++) io.observe(els[j]);
+  }
+
+  document.addEventListener('motionchange', apDung);
+  if (mq) {
+    if (mq.addEventListener) mq.addEventListener('change', apDung);
+    else if (mq.addListener) mq.addListener(apDung);
+  }
+  apDung();
+})();
+</script>

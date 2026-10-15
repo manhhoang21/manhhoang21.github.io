@@ -1,8 +1,159 @@
-<nav class="site-nav mono">
+<nav class="site-nav mono" aria-label="Điều hướng chính">
   <div class="site-nav-inner">
     <a class="brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
     {%- for item in site.data.nav %}
+    {%- if item.children %}
+    <details class="nav-drop">
+      <summary{% if page.nav == item.key %} class="is-current"{% endif %}>{{ item.label }}</summary>
+      <ul class="nav-drop-list">
+        <li><a href="{{ item.url | relative_url }}"{% if page.url == item.url %} aria-current="page"{% endif %}>Tất cả {{ item.label | downcase }}</a></li>
+        {%- for child in item.children %}
+        <li><a href="{{ child.url | relative_url }}"{% if page.url == child.url %} aria-current="page"{% endif %}>{{ child.label }}</a></li>
+        {%- endfor %}
+      </ul>
+    </details>
+    {%- else %}
     <a href="{{ item.url | relative_url }}"{% if page.nav == item.key %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {%- endif %}
     {%- endfor %}
+
+    {%- comment -%}
+      Bảng Thiết lập: giao diện (data-theme) và chuyển động (data-motion) trên <html>.
+      Ẩn khi tắt JS (CSS chỉ hiện khi <html> có class js). Script trong <head> áp lại lựa chọn đã lưu.
+    {%- endcomment %}
+    <div class="settings">
+      <button class="settings-btn" type="button" aria-expanded="false" aria-controls="settings-panel" aria-label="Thiết lập" title="Thiết lập">
+        <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" focusable="false"><path d="M10.3 2.5h3.4l.5 2.6a7.6 7.6 0 0 1 1.9 1.1l2.5-.9 1.7 2.9-2 1.7a7.7 7.7 0 0 1 0 2.2l2 1.7-1.7 2.9-2.5-.9a7.6 7.6 0 0 1-1.9 1.1l-.5 2.6h-3.4l-.5-2.6a7.6 7.6 0 0 1-1.9-1.1l-2.5.9-1.7-2.9 2-1.7a7.7 7.7 0 0 1 0-2.2l-2-1.7 1.7-2.9 2.5.9a7.6 7.6 0 0 1 1.9-1.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+      </button>
+      <div class="settings-panel" id="settings-panel" hidden>
+        <div class="settings-group">
+          <span class="settings-title">Giao diện</span>
+          <button class="theme-switch" type="button" role="switch" aria-checked="false" aria-label="Chế độ tối">
+            <svg class="theme-switch-sun" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <span class="theme-switch-track" aria-hidden="true"><span class="theme-switch-knob"></span></span>
+            <svg class="theme-switch-moon" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" focusable="false"><path d="M20.5 14.3A8.5 8.5 0 0 1 9.7 3.5a8.5 8.5 0 1 0 10.8 10.8Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <fieldset class="settings-group level" data-level="3">
+          <legend class="settings-title">Hiệu ứng</legend>
+          <div class="level-steps">
+            <label class="level-step" data-step="1"><input type="radio" name="motion" value="reduce" /><span class="level-text">Tắt</span></label>
+            <label class="level-step" data-step="2"><input type="radio" name="motion" value="medium" /><span class="level-text">Vừa</span></label>
+            <label class="level-step" data-step="3"><input type="radio" name="motion" value="full" /><span class="level-text">Đầy đủ</span></label>
+          </div>
+          <button class="level-reset" type="button">Theo hệ thống</button>
+        </fieldset>
+      </div>
+    </div>
   </div>
 </nav>
+<script>
+// Bảng Thiết lập: công tắc sáng/tối (data-theme) và thanh mức hiệu ứng (data-motion) trên <html>.
+// Lựa chọn lưu trong localStorage; script trong <head> áp lại trước khi vẽ trang.
+// Không đọc/ghi được localStorage (ẩn danh, chặn cookie) -> vẫn áp cho trang đang xem, không báo lỗi.
+(function () {
+  var wrap = document.querySelector('.settings');
+  if (!wrap) return;
+  var btn = wrap.querySelector('.settings-btn');
+  var panel = wrap.querySelector('.settings-panel');
+  var root = document.documentElement;
+
+  function luu(khoa, v) {
+    try { if (v === null) localStorage.removeItem(khoa); else localStorage.setItem(khoa, v); } catch (e) {}
+  }
+  function mq(q) { return window.matchMedia ? window.matchMedia(q) : null; }
+  function nghe(m, fn) {
+    if (!m) return;
+    if (m.addEventListener) m.addEventListener('change', fn); else if (m.addListener) m.addListener(fn);
+  }
+
+  // ---- Công tắc sáng/tối: bật = tối. Chưa gạt lần nào thì theo hệ điều hành.
+  var sw = wrap.querySelector('.theme-switch');
+  var mqToi = mq('(prefers-color-scheme: dark)');
+  function cheDo() {
+    var t = root.getAttribute('data-theme');
+    if (t === 'light' || t === 'dark') return t;
+    return mqToi && mqToi.matches ? 'dark' : 'light';
+  }
+  function veCongTac() { sw.setAttribute('aria-checked', cheDo() === 'dark' ? 'true' : 'false'); }
+  sw.addEventListener('click', function () {
+    var moi = cheDo() === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', moi);
+    luu('theme', moi);
+    veCongTac();
+  });
+  nghe(mqToi, veCongTac);
+  veCongTac();
+
+  // ---- Mức hiệu ứng: reduce = Tắt (1), medium = Vừa (2), full = Đầy đủ (3).
+  var level = wrap.querySelector('.level');
+  var reset = wrap.querySelector('.level-reset');
+  var radios = level.querySelectorAll('input[name="motion"]');
+  var MUC = { reduce: 1, medium: 2, full: 3 };
+  var mqGiam = mq('(prefers-reduced-motion: reduce)');
+  function mucHienTai() {
+    var m = root.getAttribute('data-motion');
+    if (MUC[m]) return m;
+    return mqGiam && mqGiam.matches ? 'reduce' : 'full';
+  }
+  function veMuc() {
+    var m = mucHienTai();
+    level.setAttribute('data-level', MUC[m]);
+    for (var i = 0; i < radios.length; i++) radios[i].checked = radios[i].value === m;
+    reset.disabled = !root.hasAttribute('data-motion');
+  }
+  function datMuc(m) {
+    if (MUC[m]) root.setAttribute('data-motion', m); else root.removeAttribute('data-motion');
+    luu('motion', MUC[m] ? m : null);
+    veMuc();
+    // Báo cho script hiện dần (_includes/hien-dan.html)
+    try { document.dispatchEvent(new Event('motionchange')); } catch (e) {}
+  }
+  for (var i = 0; i < radios.length; i++) {
+    radios[i].addEventListener('change', function () { datMuc(this.value); });
+  }
+  reset.addEventListener('click', function () {
+    datMuc(null);
+    // Nút vừa bị disabled nên sẽ mất focus -> đưa focus về ô mức đang chọn, bảng vẫn dùng bàn phím tiếp được
+    var dangChon = level.querySelector('input[name="motion"]:checked');
+    if (dangChon) dangChon.focus();
+  });
+  nghe(mqGiam, veMuc);
+  veMuc();
+
+  // ---- Mở/đóng bảng
+  function dongMo(mo) {
+    panel.hidden = !mo;
+    btn.setAttribute('aria-expanded', mo ? 'true' : 'false');
+  }
+  btn.addEventListener('click', function () { dongMo(panel.hidden); });
+  // Bấm ra ngoài hoặc Tab ra khỏi bảng -> đóng
+  document.addEventListener('click', function (e) {
+    if (!panel.hidden && !wrap.contains(e.target)) dongMo(false);
+  });
+  wrap.addEventListener('focusout', function (e) {
+    if (!panel.hidden && e.relatedTarget && !wrap.contains(e.relatedTarget)) dongMo(false);
+  });
+  // Esc -> đóng và trả focus về nút
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !panel.hidden) { dongMo(false); btn.focus(); }
+  });
+})();
+
+// Đóng menu xổ xuống khi bấm ra ngoài hoặc nhấn Esc
+(function () {
+  var drops = document.querySelectorAll('.nav-drop');
+  if (!drops.length) return;
+  document.addEventListener('click', function (e) {
+    for (var i = 0; i < drops.length; i++) {
+      if (drops[i].open && !drops[i].contains(e.target)) drops[i].open = false;
+    }
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    for (var i = 0; i < drops.length; i++) {
+      if (drops[i].open) { drops[i].open = false; drops[i].querySelector('summary').focus(); }
+    }
+  });
+})();
+</script>
