@@ -1,0 +1,3 @@
+# Luôn dùng LF cho file văn bản, kể cả trên Windows (core.autocrlf=true).
+# Jekyll cắt đoạn tóm tắt bài ở chỗ có 2 lần xuống dòng LF; file CRLF làm nó lấy cả bài.
+* text=auto eol=lf
