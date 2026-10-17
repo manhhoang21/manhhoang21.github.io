@@ -1,6 +1,6 @@
 ---
 title: "Hành trình chinh phục Chư Nâm, nóc nhà của phố núi Pleiku"
-cover: du-lich/chu-nam-gia-lai/06.webp
+cover: du-lich/chu-nam-gia-lai/bia.webp
 location: "Núi Chư Nâm, Gia Lai"
 days: 2
 transport: "Xe khách TP.HCM → Gia Lai, leo bộ"
@@ -18,7 +18,7 @@ Ngồi trên xe nhìn thành phố lùi dần, mình nhớ cái cảm giác quen
 
 Chín giờ sáng, cả đoàn đặt chân lên những bước đầu tiên. Con đường đất đỏ nhanh chóng dựng đứng lên thành dốc đá. Nắng cao nguyên rọi thẳng xuống lưng, mồ hôi chảy ròng, balo mỗi lúc một nặng hơn. Có những đoạn phải chống cả hai tay, bám từng mỏm đá mà nhích lên.
 
-{% include img.html src="du-lich/chu-nam-gia-lai/02.webp" alt="Người đeo balo leo dốc đá đất đỏ, phía xa là núi lửa Chư Đăng Ya với ruộng bậc thang" caption="Ngoảnh lại sau lưng là núi lửa Chư Đăng Ya, khoác tấm áo ruộng bậc thang." %}
+{% include img.html src="du-lich/chu-nam-gia-lai/01.webp" alt="Người đeo balo leo dốc đá đất đỏ, phía xa là núi lửa Chư Đăng Ya với ruộng bậc thang" caption="Ngoảnh lại sau lưng là núi lửa Chư Đăng Ya, khoác tấm áo ruộng bậc thang." %}
 
 Nhưng mỗi lần dừng lại thở, ngoảnh ra sau là thấy công sức được trả ngay. Núi lửa Chư Đăng Ya tròn trịa nằm ngay đó, khoác những thửa ruộng bậc thang đủ màu, thấp dần dưới chân mình theo từng chặng dốc. Không ai vội. Cả đoàn vừa leo vừa ngắm, vừa thở vừa cười, để mặc gió núi lau khô mồ hôi. Cứ thế, tới khoảng ba giờ chiều, mình chạm tay vào đỉnh.
 
@@ -31,8 +31,8 @@ Cảm giác đặt balo xuống sau sáu tiếng leo thật khó tả: chân rã
 Trại vừa dựng xong thì nắng cũng bắt đầu ngả màu. Cả đoàn kéo nhau ra những tảng đá phía trước, ngồi chờ hoàng hôn như chờ một buổi diễn. Mặt trời đỏ dần, tròn dần, rồi lơ lửng ngay trên đường chân trời, gần đến mức tưởng chỉ cần chìa tay ra là chạm được.
 
 <div class="gallery">
-{% include img.html src="du-lich/chu-nam-gia-lai/03.webp" alt="Ngồi trên tảng đá, giơ tay như đang nâng mặt trời lặn" %}
-{% include img.html src="du-lich/chu-nam-gia-lai/04.webp" alt="Đứng trên đỉnh, đưa tay như chạm vào mặt trời đang lặn" %}
+{% include img.html src="du-lich/chu-nam-gia-lai/02.webp" alt="Ngồi trên tảng đá, giơ tay như đang nâng mặt trời lặn" %}
+{% include img.html src="du-lich/chu-nam-gia-lai/03.webp" alt="Đứng trên đỉnh, đưa tay như chạm vào mặt trời đang lặn" %}
 </div>
 
 Và thế là đứa nào cũng thử. Người ngồi "nâng" mặt trời trong lòng bàn tay, người đứng "đặt" nó xuống dãy núi xa. Những tấm hình trẻ con ấy, đến giờ xem lại mình vẫn còn thấy vui.
@@ -45,11 +45,11 @@ Trời tối hẳn thì bếp lửa cũng vừa bén. Củi khô lách tách, á
 
 Sáng hôm sau, mình chui ra khỏi lều khi trời còn mờ tối. Rồi bầu trời đổi màu từng chút một: mây hồng trải ngang trên các dãy núi, mặt trời nhô lên sau một đám mây lớn, rồi nhuộm cam cả những lớp núi chồng lên nhau, phía xa vẫn còn vương một làn sương mỏng.
 
-{% include img.html src="du-lich/chu-nam-gia-lai/bia.webp" alt="Bình minh, mây hồng phủ trên các dãy núi, góc dưới là đồ cắm trại" caption="Bình minh nhìn từ khu cắm trại." %}
+{% include img.html src="du-lich/chu-nam-gia-lai/04.webp" alt="Bình minh, mây hồng phủ trên các dãy núi, góc dưới là đồ cắm trại" caption="Bình minh nhìn từ khu cắm trại." %}
 
 <div class="gallery">
-{% include img.html src="du-lich/chu-nam-gia-lai/01.webp" alt="Mặt trời lên sau đám mây lớn, các lớp núi thành bóng đen" %}
-{% include img.html src="du-lich/chu-nam-gia-lai/05.webp" alt="Mặt trời cam rực trên nhiều lớp núi mờ sương" %}
+{% include img.html src="du-lich/chu-nam-gia-lai/05.webp" alt="Mặt trời lên sau đám mây lớn, các lớp núi thành bóng đen" %}
+{% include img.html src="du-lich/chu-nam-gia-lai/06.webp" alt="Mặt trời cam rực trên nhiều lớp núi mờ sương" %}
 </div>
 
 Đứng trên đỉnh Chư Nâm, mình mới hiểu vì sao người ta chịu khó leo sáu tiếng để lên tới đây. Chỉ cần xoay một vòng là thấy bốn khung cảnh khác nhau: một hướng là phố thị, một hướng là làng quê yên ả, một hướng là đồi núi trùng điệp, và một hướng là mặt hồ lấp lánh dưới nắng sớm. Đứng giữa tất cả những điều đó, mình thấy mình nhỏ bé, nhưng lạ thay, cũng thấy lòng rộng ra rất nhiều.
