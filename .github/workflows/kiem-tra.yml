@@ -1,10 +1,10 @@
-# Kiểm tra trước khi merge: build site bằng đúng bộ gem GitHub Pages, rồi kiểm tra link nội bộ.
+# Kiểm tra build: build site bằng đúng bộ gem GitHub Pages, kiểm tra link nội bộ và ảnh trên blog-anh.
 # Chỉ kiểm tra, KHÔNG deploy. master vẫn do GitHub Pages tự build và đưa lên site như cũ.
+# Chạy cả khi push master: không chặn được deploy, nhưng luôn có dấu ✅/❌ cho mọi commit.
 name: Kiểm tra build
 
 on:
   push:
-    branches-ignore: [master]
   pull_request:
     branches: [master]
   workflow_dispatch:
@@ -31,3 +31,24 @@ jobs:
       - name: Kiểm tra link nội bộ
         # Bỏ qua link ra ngoài (LinkedIn, ảnh CDN...) để CI không phụ thuộc mạng bên ngoài
         run: bundle exec htmlproofer ./_site --disable-external
+
+      - name: Kiểm tra ảnh trên blog-anh
+        # htmlproofer bỏ qua link ngoài, nên ảnh gõ sai tên hoặc chưa push lên blog-anh sẽ lọt qua.
+        # Bước này chỉ kiểm tra ảnh lấy từ cdn_url (_config.yml). Hỏi thẳng GitHub thay vì jsDelivr
+        # để không bị cache CDN báo sai ngay sau khi vừa push ảnh.
+        run: |
+          cdn=$(ruby -ryaml -e 'puts YAML.load_file("_config.yml")["cdn_url"]')
+          raw=$(echo "$cdn" | sed -E 's#^https://cdn\.jsdelivr\.net/gh/([^/]+)/([^@]+)@(.+)$#https://raw.githubusercontent.com/\1/\2/\3#')
+          urls=$(grep -rhoE 'src="[^"]+"' _site --include='*.html' | sed -e 's/^src="//' -e 's/"$//' | grep -F "$cdn/" | sort -u)
+          loi=0; n=0
+          for u in $urls; do
+            n=$((n + 1))
+            p="${u#"$cdn/"}"
+            code=$(curl -s -o /dev/null -w '%{http_code}' --retry 2 "$raw/$p")
+            if [ "$code" != "200" ]; then
+              echo "::error::Không tìm thấy ảnh trên blog-anh: $p (HTTP $code)"
+              loi=1
+            fi
+          done
+          echo "Đã kiểm tra $n ảnh từ blog-anh."
+          exit $loi
