@@ -25,7 +25,7 @@ layout: default
   </div>
 
   {%- if page.cover %}
-  {% include img.html src=page.cover alt=page.title %}
+  {% include img.html src=page.cover alt=page.title class="post-cover" loading="eager" %}
   {%- endif %}
 
   {%- if thong_tin != "" %}

@@ -1,10 +1,14 @@
 {%- comment -%}
   Nhúng ảnh từ repo ảnh riêng qua jsDelivr CDN.
   Dùng: {% include img.html src="ten-anh.webp" alt="Mô tả ảnh" %}
-  Tuỳ chọn: caption="Chú thích dưới ảnh"
+  Tuỳ chọn:
+    caption="Chú thích dưới ảnh"
+    class="post-cover"  -> thêm class cho <figure> (vd ảnh bìa đầu bài)
+    loading="eager"     -> tải ngay; mặc định "lazy" (chờ cuộn tới mới tải).
+                           Ảnh nằm ngay đầu trang nên dùng "eager".
 {%- endcomment -%}
-<figure class="post-img">
-  <img src="{{ site.cdn_url }}/{{ include.src }}" alt="{{ include.alt | default: '' }}" loading="lazy">
+<figure class="post-img{% if include.class %} {{ include.class }}{% endif %}">
+  <img src="{{ site.cdn_url }}/{{ include.src }}" alt="{{ include.alt | default: '' }}" loading="{{ include.loading | default: 'lazy' }}">
   {%- if include.caption %}
   <figcaption>{{ include.caption }}</figcaption>
   {%- endif %}

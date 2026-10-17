@@ -73,6 +73,14 @@
     color: var(--ink-soft); margin-top: 0.5rem;
   }
 }
+// Ảnh bìa đầu bài: giới hạn chiều cao để ảnh dọc không chiếm trọn màn hình, cắt giữa ảnh.
+// Ảnh ngang thường thấp hơn giới hạn nên hiển thị gần như nguyên vẹn.
+.post-cover img {
+  width: 100%;
+  max-height: 60vh;
+  object-fit: cover;
+  object-position: center;
+}
 .gallery {
   figure, .post-img { margin: 0; }
   figcaption { margin-top: 0.35rem; }
