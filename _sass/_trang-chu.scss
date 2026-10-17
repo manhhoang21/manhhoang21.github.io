@@ -151,8 +151,6 @@
   @each $dm in $danh-muc {
     &.#{$dm} .tag { color: var(--cat-#{$dm}); }
   }
-  // Bài chưa viết: hiện như text thường, chưa bấm được
-  .pending { color: var(--ink); }
 
   &:hover { padding-left: 0.55rem; border-color: var(--accent); }
 }

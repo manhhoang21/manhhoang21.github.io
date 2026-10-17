@@ -53,22 +53,5 @@ description: "Ghi chép của Trịnh Mạnh Hoàng — lập trình viên Java 
       {%- endfor %}
     </ol>
     {%- endif %}
-
-    {%- if site.data.upcoming.size > 0 %}
-    <h2 class="section-label reveal">Sắp ra mắt</h2>
-    <ol class="entries">
-      {%- for item in site.data.upcoming %}
-      <li class="entry reveal {{ item.category }}">
-        <div class="when mono"><span class="date">{{ item.date | date: "%d.%m" }}</span>{{ item.date | date: "%Y" }}</div>
-        <div>
-          <span class="tag">{{ site.data.categories[item.category].label }}</span>
-          <h3><span class="pending">{{ item.title }}</span></h3>
-          <p>{{ item.teaser }}</p>
-        </div>
-      </li>
-      {%- endfor %}
-    </ol>
-    <p class="note reveal">Bài <a class="underline-link" href="{{ '/trai-nghiem/' | relative_url }}">Trải nghiệm</a> (<em>{{ site.data.categories.duong.label }}</em>, <em>{{ site.data.categories.an.label }}</em>, <em>{{ site.data.categories.choi.label }}</em>) không nằm trong lịch này — chỉ lên khi mình có điều muốn chia sẻ.</p>
-    {%- endif %}
   </section>
 </div>
