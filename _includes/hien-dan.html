@@ -3,6 +3,9 @@
   Chỉ theo dõi .reveal, vì CSS chỉ có hiệu ứng cho .reveal: muốn phần tử nào hiện dần thì gắn class đó.
   Không gắn .reveal cho phần thấy ngay khi mở trang (masthead, tiêu đề/khối bài viết): CSS ẩn chúng
   từ trước khi vẽ, còn script này chạy ở cuối <body>, nên đầu trang sẽ trống cho tới khi script chạy.
+  Riêng thân bài viết (Markdown không gắn class được): script tự gắn .reveal cho các khối trong
+  .article-body và hộp thông tin, NHƯNG chỉ những khối nằm dưới màn hình đầu lúc tải. Khối đang thấy
+  sẵn thì để nguyên, nên không bị nháy hay trống. Áp dụng cho mọi bài (Góc nghề, Trải nghiệm).
   Class js-anim được bật trong <head> của layout mặc định.
   CSS ở _sass/_hieu-ung.scss.
   Hiện dần là hiệu ứng lớn: chỉ chạy ở mức Đầy đủ. Mức Tắt hoặc Vừa (hoặc chưa chọn mà hệ điều hành bật
@@ -11,6 +14,13 @@
 {%- endcomment -%}
 <script>
 (function () {
+  // Thân bài viết: gắn .reveal cho các khối nằm dưới màn hình đầu (khối đang thấy sẵn thì bỏ qua)
+  var khoiBai = document.querySelectorAll('.article-body > *, .article > .info-box');
+  var dayManHinh = window.innerHeight || document.documentElement.clientHeight;
+  for (var k = 0; k < khoiBai.length; k++) {
+    if (khoiBai[k].getBoundingClientRect().top > dayManHinh) khoiBai[k].classList.add('reveal');
+  }
+
   var els = document.querySelectorAll('.reveal');
   if (!els.length) return;
 
