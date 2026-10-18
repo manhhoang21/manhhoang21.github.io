@@ -6,9 +6,13 @@ lang: vi
 url: https://manhhoang21.github.io
 baseurl: ""
 
-# Repo ảnh riêng, serve qua jsDelivr CDN
-# Đổi "main" thành tag/commit hash khi muốn ghim phiên bản (cache ổn định hơn)
-cdn_url: "https://cdn.jsdelivr.net/gh/manhhoang21/blog-anh@main"
+# Repo ảnh riêng, serve qua jsDelivr CDN.
+# Ghim theo mã commit của blog-anh, KHÔNG dùng @main: jsDelivr cho trình duyệt giữ ảnh 7 ngày,
+# nên nếu ảnh đổi nội dung mà giữ tên thì người đã xem bài sẽ thấy ảnh cũ. Ghim commit thì
+# mỗi lần ảnh đổi, địa chỉ ảnh đổi theo.
+# Mỗi lần push ảnh mới/sửa ảnh lên blog-anh: thay mã dưới bằng commit mới nhất của blog-anh
+# (cd D:\Project\blog-anh && git rev-parse HEAD). Quên thì CI báo "Không tìm thấy ảnh".
+cdn_url: "https://cdn.jsdelivr.net/gh/manhhoang21/blog-anh@c4ec36569fc1f0f10a5d359ffda927533dc3dc76"
 
 # Bài viết ra URL dạng /bai-viet/ten-bai/
 permalink: /bai-viet/:title/
