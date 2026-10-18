@@ -401,9 +401,6 @@ footer {
   border-top: 1px solid var(--line);
   font-size: 0.78rem;
   color: var(--ink-soft);
-
-  .aliases { margin: 0 0 0.6rem; }
-  .aliases span:not(:last-child)::after { content: "·"; margin: 0 0.5em; opacity: 0.5; }
 }
 
 // Tắt hiệu ứng của menu xổ xuống và nút Thiết lập (chỉ khai báo trong file này)

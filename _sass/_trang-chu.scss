@@ -52,17 +52,6 @@
   .mono { color: var(--accent-strong); }
 }
 
-// Ghi chú phụ dưới một khối nội dung
-.note {
-  max-width: 62ch;
-  margin: 1.5rem 0 0;
-  font-size: 0.82rem;
-  font-style: italic;
-  color: var(--ink-soft);
-
-  em { font-style: normal; color: var(--ink); }
-}
-
 // ---------- Bài nổi bật ----------
 .featured {
   background: var(--paper-raised);
@@ -162,53 +151,10 @@
 
 // ---------- Khung trang landing ----------
 // .landing đang dùng cho các trang Trải nghiệm.
-// .intro, .cta, .landing-block, .cat-list còn lại từ trang chủ cũ, hiện không trang nào dùng.
 .landing {
   max-width: 1040px;
   margin: 0 auto;
   padding: 2.75rem 1.5rem 4rem;
-}
-.intro {
-  max-width: 58ch;
-  margin: 0 0 2rem;
-  font-size: 1.05rem;
-  color: var(--ink-soft);
-
-  strong { color: var(--ink); font-weight: 600; }
-}
-.cta {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.7rem;
-  padding: 1rem 1.5rem;
-  background: var(--paper-raised);
-  border: 1px solid var(--line);
-  border-radius: 4px;
-  box-shadow: var(--shadow);
-  text-decoration: none;
-  font-size: 1.05rem;
-  transition: border-color 0.2s ease, transform 0.2s ease;
-
-  &:hover, &:focus-visible { border-color: var(--accent); transform: translateY(-1px); }
-  &:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-  em { font-style: italic; }
-  .arrow { color: var(--accent); }
-}
-.landing-block {
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 1px dashed var(--line);
-}
-.cat-list {
-  list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-
-  li { display: flex; align-items: baseline; gap: 0.6rem; font-size: 0.95rem; }
-  .dot { width: 0.55em; height: 0.55em; border-radius: 50%; flex: none; transform: translateY(-0.05em); }
-  .what { color: var(--ink-soft); font-size: 0.85rem; display: block; }
-  .when-note { font-size: 0.92em; opacity: 0.7; }
-  @each $dm in $danh-muc {
-    .#{$dm} .dot { background: var(--cat-#{$dm}); }
-  }
 }
 
 // Mức Vừa: bỏ hiện dần nhưng giữ hover. Đè khối tắt .reveal trong _hieu-ung.scss (0,3,0) bằng (0,4,0).
