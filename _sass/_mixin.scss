@@ -14,7 +14,7 @@
 // tat-hieu-ung-lon (bên dưới): tắt hiệu ứng lớn (hiện dần khi cuộn, phóng ảnh). Có hiệu lực ở mức Tắt và Vừa.
 //
 // Mixin tự thêm :root phía trước mọi selector bên trong, nên KHÔNG viết class nằm trên chính
-// <html> (vd .js-anim) trong khối này — viết thẳng phần tử con (.reveal, body, .cta...).
+// <html> (vd .js-anim) trong khối này — viết thẳng phần tử con (.reveal, body, .underline-link...).
 //
 // Mỗi hiệu ứng mới cần kèm một khối này. Đặt ở đâu:
 // - Hiệu ứng chỉ nằm trong một file -> đặt khối ở cuối chính file đó.

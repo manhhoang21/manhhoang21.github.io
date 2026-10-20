@@ -1,4 +1,4 @@
-// Thành phần dùng ở nhiều trang: nav, masthead, nhãn danh mục, link, meta, danh sách gạch đầu dòng, footer.
+// Thành phần dùng ở nhiều trang: nav, masthead, nhãn danh mục, link, meta, footer.
 // Phần tắt chuyển động của các thành phần này nằm ở _hieu-ung.scss.
 
 // ---------- Thanh điều hướng (mọi trang) ----------
@@ -369,28 +369,6 @@
 
   .arrow { transition: transform 0.2s ease; display: inline-block; }
   &:hover .arrow { transform: translateX(3px); }
-}
-
-// ---------- Danh sách gạch đầu dòng "—" ----------
-.tips {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-
-  li {
-    position: relative;
-    padding-left: 1.1rem;
-    margin-bottom: 0.85rem;
-    font-size: 0.85rem;
-    color: var(--ink-soft);
-
-    &::before {
-      content: "—";
-      position: absolute;
-      left: 0;
-      color: var(--accent);
-    }
-  }
 }
 
 // ---------- Footer ----------
